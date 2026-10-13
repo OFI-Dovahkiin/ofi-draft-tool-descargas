@@ -1,0 +1,10 @@
+// La web de OFI Draft Tool en Cloudflare: solo ficheros estáticos, sin código de servidor.
+// Cloudflare la publica sola en cada subida que toque la carpeta web/.
+{
+  "name": "ofi-draft-tool-web",
+  "compatibility_date": "2026-10-12",
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "404-page"
+  }
+}

@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OFI Draft Tool</title>
+<meta name="description" content="A free Windows draft assistant for premade League of Legends teams. It reads your champion select and explains why a composition wins and how hard it is to play.">
+<link rel="icon" href="assets/icono.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/estilo.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="envoltura">
+    <a class="marca" href="./">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="3" width="13" height="26" rx="3" fill="#2c5bd6"/><rect x="18" y="3" width="13" height="26" rx="3" fill="#bf363c"/><rect x="4" y="7" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="4" y="13" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="4" y="19" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="7" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="13" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="19" width="7" height="3" rx="1" fill="#fff" opacity=".85"/></svg>
+      OFI Draft Tool
+    </a>
+    <nav class="menu" aria-label="Main">
+      <a href="#how">How it works</a>
+      <a href="#in-game">In game</a>
+      <a href="#data">Data</a>
+      <a href="#fair-play">Fair play</a>
+      <a href="#status">Status</a>
+      <a href="es/" lang="es" hreflang="es">Español</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="portada">
+    <div class="envoltura">
+      <h1>Why your draft wins, and how hard it is to play.</h1>
+      <p class="entrada">OFI Draft Tool reads your champion select from the League client and explains each composition in plain words: the lanes, the power curve, the game plan and what the other team has to do to stop it. A free Windows app, made by and for the OFI Clash team.</p>
+      <div class="acciones">
+        <a class="boton principal" href="#how">See how it works</a>
+        <a class="boton" href="#fair-play">Read the fair-play rules</a>
+      </div>
+
+      <div class="tablero" role="figure" aria-label="Illustration of the draft board">
+        <div class="lado azul">
+          <p class="lado-titulo">Blue side</p>
+          <ol>
+            <li class="puesto"><span class="rol">TOP</span><span class="campeon">Ornn</span></li>
+            <li class="puesto"><span class="rol">JNG</span><span class="campeon">Sejuani</span></li>
+            <li class="puesto"><span class="rol">MID</span><span class="campeon">Galio</span></li>
+            <li class="puesto"><span class="rol">ADC</span><span class="campeon">Jinx</span></li>
+            <li class="puesto"><span class="rol">SUP</span><span class="campeon">Braum</span></li>
+          </ol>
+        </div>
+        <div class="lectura">
+          <h3>Frontline against poke</h3>
+          <dl>
+            <dt>How blue wins</dt>
+            <dd>Force the fight before the siege wears the frontline down. Three champions can start it.</dd>
+            <dt>How red wins</dt>
+            <dd>Keep the fight at range and take objectives while blue cannot engage.</dd>
+            <dt>What to watch</dt>
+            <dd>Lanes, power curve and options for the next pick, each with its reason.</dd>
+          </dl>
+        </div>
+        <div class="lado rojo">
+          <p class="lado-titulo">Red side</p>
+          <ol>
+            <li class="puesto"><span class="rol">TOP</span><span class="campeon">Jayce</span></li>
+            <li class="puesto"><span class="rol">JNG</span><span class="campeon">Nidalee</span></li>
+            <li class="puesto"><span class="rol">MID</span><span class="campeon">Xerath</span></li>
+            <li class="puesto"><span class="rol">ADC</span><span class="campeon">Ezreal</span></li>
+            <li class="puesto"><span class="rol">SUP</span><span class="campeon">Karma</span></li>
+          </ol>
+        </div>
+      </div>
+      <p class="pie-tablero">An illustration of the board, not a screenshot. The app shows the same structure with real data during champion select.</p>
+    </div>
+  </section>
+
+  <section class="seccion" id="what">
+    <div class="envoltura">
+      <h2>What it shows in champion select</h2>
+      <ul class="lista">
+        <li><strong>Both teams, as the client shows them.</strong> Picks, bans and your team's hovers. The enemy's roles are not sent by the client, so the app infers them from the visible champions and says so on screen.</li>
+        <li><strong>Lane by lane.</strong> Which side is favoured in each lane and by how much gold at 15 minutes, measured on aggregated ranked games, with the sample size next to every number.</li>
+        <li><strong>The game plan of each team.</strong> When each composition is strongest, how it wants to fight (engage, peel, poke, split) and what the other side needs to deny it.</li>
+        <li><strong>Options for the next pick and ban.</strong> Several candidates, ranked, each with the reason behind it. The decision stays with the player.</li>
+        <li><strong>Runes, summoner spells and an item set</strong> for your champion, written to the client only when you press the import button.</li>
+      </ul>
+      <p class="texto-suave">Outside champion select it works as a reference: tier lists by rank bracket, a page per champion with builds, rune pages and matchups, and a manual draft board where you can type ten champions to study a composition.</p>
+    </div>
+  </section>
+
+  <section class="seccion" id="how">
+    <div class="envoltura">
+      <h2>How you use it</h2>
+      <ol class="pasos">
+        <li><strong>Install it.</strong><span>A Windows 10 or 11 installer that does not need administrator rights. It updates itself with versions signed by us, but never while you are in queue, in champion select or in a game.</span></li>
+        <li><strong>Open the League client.</strong><span>The app finds it on its own by reading the client's lockfile. It does not touch the game process.</span></li>
+        <li><strong>Enter champion select.</strong><span>The analysis refreshes with every pick, ban and hover from your team. The board can sit in its own window next to the client.</span></li>
+        <li><strong>Lock in, and import if you want to.</strong><span>Press Import to write the suggested runes, spells and item set to the client. Your current rune page is saved first.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="seccion" id="in-game">
+    <div class="envoltura">
+      <h2>During the game, only if you turn it on</h2>
+      <p>The overlay is optional and can be switched off in the settings. It is a transparent window on top of the game, fed only by Riot's Live Client Data API, the local interface the game itself offers. It never reads the game's memory.</p>
+      <ul class="lista">
+        <li><strong>Your skill order</strong>, with the ability icons.</li>
+        <li><strong>Epic objective timers</strong>, from the game's own events.</li>
+        <li><strong>The gold value of each player's items</strong>, computed from the items the scoreboard already shows.</li>
+        <li><strong>A short alert about your own team.</strong> It never reads the enemy team, never takes focus and never clicks.</li>
+      </ul>
+      <p>It never shows enemy cooldowns, enemy summoner spells, positions or jungle camps.</p>
+    </div>
+  </section>
+
+  <section class="seccion" id="team">
+    <div class="envoltura">
+      <h2>For the team</h2>
+      <ul class="lista">
+        <li><strong>Players.</strong> Each member's roles, champion pool and recent form, measured on their own recent games.</li>
+        <li><strong>Game plans.</strong> Compositions the five of you can actually play, with who takes each role and which bans protect the plan.</li>
+        <li><strong>Match history.</strong> The team's recent games, with filters by queue, result, role and champion.</li>
+        <li><strong>Clash scouting.</strong> Before a Clash match, the opposing roster published by the Clash API and the champions they play.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="seccion" id="data">
+    <div class="envoltura">
+      <h2>Where the data comes from</h2>
+      <p>Every statistic comes with its sample size. When there is not enough data, the app says so instead of filling the gap.</p>
+      <div class="tabla-envoltura">
+        <table>
+          <thead>
+            <tr><th scope="col">Source</th><th scope="col">What we use</th><th scope="col">When and where</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Riot API: <code>match-v5</code>, <code>league-v4</code></td>
+              <td>Ranked Solo/Duo games on EUW, aggregated by champion and role: win rates, matchups, gold at 15, builds, rune pages and summoner spells. The most recent ~100,000 games.</td>
+              <td>A nightly job on our build server. The results ship inside each app version.</td>
+            </tr>
+            <tr>
+              <td>Riot API: <code>account-v1</code>, <code>league-v4</code>, <code>champion-mastery-v4</code>, <code>match-v5</code></td>
+              <td>Profiles of the registered team's players: Riot ID, roles, mastery and recent games.</td>
+              <td>A weekly job on our build server, and on demand.</td>
+            </tr>
+            <tr>
+              <td>Riot API: <code>clash-v1</code>, <code>account-v1</code>, <code>match-v5</code></td>
+              <td>Clash scouting: the opposing roster and the champions they play. Also the profile of a substitute who joins the team for a day.</td>
+              <td>On demand, from the team captain's PC. Scouting is kept for 7 days.</td>
+            </tr>
+            <tr>
+              <td>League Client API (local)</td>
+              <td>The champion select session, the game phase, and, when you press Import, your rune pages, summoner spells and item sets.</td>
+              <td>On your PC, while the app is open. Nothing is sent anywhere.</td>
+            </tr>
+            <tr>
+              <td>Live Client Data API (local)</td>
+              <td>Your champion and abilities, the items on the scoreboard and the game's events.</td>
+              <td>On your PC, during the game, only if the overlay is on.</td>
+            </tr>
+            <tr>
+              <td>Data Dragon</td>
+              <td>Names and images of champions, items, runes and spells.</td>
+              <td>Every patch.</td>
+            </tr>
+            <tr>
+              <td>Our champion database</td>
+              <td>Abilities, crowd control, engage, peel and power curve of every champion, curated by hand.</td>
+              <td>Reviewed every patch.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The installer contains no API key, and the app never sends your data to any server of ours. Our Riot API key is a secret of our build server; the two captain tools use the key that the captain sets on their own PC.</p>
+    </div>
+  </section>
+
+  <section class="seccion" id="fair-play">
+    <div class="envoltura">
+      <h2>Fair play</h2>
+      <p>The tool is built for the time before the game. These rules are part of the code, not a promise added afterwards.</p>
+      <div class="dos-columnas">
+        <div class="columna">
+          <h3>What it does</h3>
+          <ul>
+            <li>Uses only official Riot interfaces: the Riot API, the League client's local API and the Live Client Data API.</li>
+            <li>Works in champion select and, if you turn the overlay on, during the game.</li>
+            <li>Offers several options with their reasons; the player decides.</li>
+            <li>Writes runes, spells and items only when you press a button.</li>
+            <li>Shows the source and the sample size of every statistic.</li>
+          </ul>
+        </div>
+        <div class="columna no">
+          <h3>What it never does</h3>
+          <ul>
+            <li>Read or modify the game's memory, inject code or hook into the game.</li>
+            <li>Show enemy cooldowns, enemy summoner spells, positions or jungle camps.</li>
+            <li>Reveal hidden players: enemy names in ranked champion select stay hidden.</li>
+            <li>Act for you: no automatic picks, bans, purchases or level-ups.</li>
+            <li>Rate players with an MMR or elo estimate.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion" id="status">
+    <div class="envoltura">
+      <h2>Status</h2>
+      <div class="estado">
+        <p><strong>In closed use by the OFI team.</strong> The app is updated every week with fresh data. A public release will come after Riot reviews and approves the product.</p>
+        <p>Team members have the download link in our Discord. If you are reviewing OFI Draft Tool for Riot Games, the link and test instructions are in our application.</p>
+      </div>
+      <p>Questions or problems: <a href="mailto:contact@ofidraft.com">contact@ofidraft.com</a>.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="envoltura">
+    <ul class="enlaces">
+      <li><a href="privacy.html">Privacy policy</a></li>
+      <li><a href="terms.html">Terms of use</a></li>
+      <li><a href="es/" lang="es" hreflang="es">Español</a></li>
+    </ul>
+    <p class="legal">OFI Draft Tool isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+    <p class="legal">Set in Archivo, licensed under the <a href="assets/fuentes/OFL.txt">SIL Open Font License</a>.</p>
+  </div>
+</footer>
+
+</body>
+</html>

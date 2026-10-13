@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OFI Draft Tool</title>
+<meta name="description" content="Asistente de draft gratuito para Windows, pensado para equipos premade de League of Legends. Lee tu champ select y explica por qué gana una composición y lo difícil que es jugarla.">
+<link rel="icon" href="../assets/icono.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/estilo.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="envoltura">
+    <a class="marca" href="./">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="3" width="13" height="26" rx="3" fill="#2c5bd6"/><rect x="18" y="3" width="13" height="26" rx="3" fill="#bf363c"/><rect x="4" y="7" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="4" y="13" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="4" y="19" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="7" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="13" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="19" width="7" height="3" rx="1" fill="#fff" opacity=".85"/></svg>
+      OFI Draft Tool
+    </a>
+    <nav class="menu" aria-label="Principal">
+      <a href="#como">Cómo funciona</a>
+      <a href="#en-partida">En partida</a>
+      <a href="#datos">Datos</a>
+      <a href="#juego-limpio">Juego limpio</a>
+      <a href="#estado">Estado</a>
+      <a href="../" lang="en" hreflang="en">English</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="portada">
+    <div class="envoltura">
+      <h1>Por qué gana tu draft, y lo difícil que es jugarlo.</h1>
+      <p class="entrada">OFI Draft Tool lee tu champ select desde el cliente de LoL y explica cada composición en palabras claras: las líneas, la curva de poder, el plan de partida y lo que tiene que hacer el otro equipo para pararlo. Una app gratuita para Windows, hecha por y para el equipo de Clash OFI.</p>
+      <div class="acciones">
+        <a class="boton principal" href="#como">Ver cómo funciona</a>
+        <a class="boton" href="#juego-limpio">Leer las reglas de juego limpio</a>
+      </div>
+
+      <div class="tablero" role="figure" aria-label="Ilustración del tablero de draft">
+        <div class="lado azul">
+          <p class="lado-titulo">Lado azul</p>
+          <ol>
+            <li class="puesto"><span class="rol">TOP</span><span class="campeon">Ornn</span></li>
+            <li class="puesto"><span class="rol">JNG</span><span class="campeon">Sejuani</span></li>
+            <li class="puesto"><span class="rol">MID</span><span class="campeon">Galio</span></li>
+            <li class="puesto"><span class="rol">ADC</span><span class="campeon">Jinx</span></li>
+            <li class="puesto"><span class="rol">SUP</span><span class="campeon">Braum</span></li>
+          </ol>
+        </div>
+        <div class="lectura">
+          <h3>Frontline contra poke</h3>
+          <dl>
+            <dt>Cómo gana el azul</dt>
+            <dd>Forzar la pelea antes de que el asedio desgaste la frontline. Tres campeones pueden hacer el engage.</dd>
+            <dt>Cómo gana el rojo</dt>
+            <dd>Pelear a distancia y tomar objetivos mientras el azul no puede entrar.</dd>
+            <dt>Qué mirar</dt>
+            <dd>Las líneas, la curva de poder y las opciones para el siguiente pick, cada una con su porqué.</dd>
+          </dl>
+        </div>
+        <div class="lado rojo">
+          <p class="lado-titulo">Lado rojo</p>
+          <ol>
+            <li class="puesto"><span class="rol">TOP</span><span class="campeon">Jayce</span></li>
+            <li class="puesto"><span class="rol">JNG</span><span class="campeon">Nidalee</span></li>
+            <li class="puesto"><span class="rol">MID</span><span class="campeon">Xerath</span></li>
+            <li class="puesto"><span class="rol">ADC</span><span class="campeon">Ezreal</span></li>
+            <li class="puesto"><span class="rol">SUP</span><span class="campeon">Karma</span></li>
+          </ol>
+        </div>
+      </div>
+      <p class="pie-tablero">Una ilustración del tablero, no una captura. En champ select la app enseña esta misma estructura con datos reales.</p>
+    </div>
+  </section>
+
+  <section class="seccion" id="que">
+    <div class="envoltura">
+      <h2>Qué enseña en champ select</h2>
+      <ul class="lista">
+        <li><strong>Los dos equipos, tal como los da el cliente.</strong> Picks, bans y los hovers de tu equipo. El cliente no manda los roles del rival, así que la app los deduce de los campeones visibles y lo dice en pantalla.</li>
+        <li><strong>Línea a línea.</strong> Qué lado sale favorecido en cada línea y por cuánto oro al minuto 15, medido sobre partidas clasificatorias agregadas, con el tamaño de la muestra al lado de cada cifra.</li>
+        <li><strong>El plan de partida de cada equipo.</strong> Cuándo es más fuerte cada composición, cómo quiere pelear (engage, peel, poke, split) y qué tiene que negarle el otro lado.</li>
+        <li><strong>Opciones para el siguiente pick y ban.</strong> Varios candidatos, ordenados, cada uno con su porqué. La decisión es del jugador.</li>
+        <li><strong>Runas, hechizos de invocador y un set de objetos</strong> para tu campeón, que se escriben en el cliente solo cuando pulsas el botón de importar.</li>
+      </ul>
+      <p class="texto-suave">Fuera del champ select sirve de consulta: tier lists por escalón de elo, una ficha por campeón con builds, páginas de runas y matchups, y un tablero manual donde escribir diez campeones para estudiar una composición.</p>
+    </div>
+  </section>
+
+  <section class="seccion" id="como">
+    <div class="envoltura">
+      <h2>Cómo se usa</h2>
+      <ol class="pasos">
+        <li><strong>Instálala.</strong><span>Un instalador para Windows 10 u 11 que no pide permisos de administrador. Se actualiza sola con versiones firmadas por nosotros, pero nunca en cola, en champ select ni en partida.</span></li>
+        <li><strong>Abre el cliente de LoL.</strong><span>La app lo encuentra sola leyendo el lockfile del cliente. No toca el proceso del juego.</span></li>
+        <li><strong>Entra en champ select.</strong><span>El análisis se rehace con cada pick, ban y hover de tu equipo. El tablero puede ir en su propia ventana, al lado del cliente.</span></li>
+        <li><strong>Lockea, e importa si quieres.</strong><span>Pulsa Importar para escribir en el cliente las runas, los hechizos y el set de objetos sugeridos. Antes se guarda tu página de runas actual.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="seccion" id="en-partida">
+    <div class="envoltura">
+      <h2>En partida, solo si lo activas</h2>
+      <p>El overlay es opcional y se apaga en los ajustes. Es una ventana transparente encima del juego que solo se alimenta de la Live Client Data API de Riot, la interfaz local que ofrece el propio juego. Nunca lee la memoria del juego.</p>
+      <ul class="lista">
+        <li><strong>Tu orden de subida de habilidades</strong>, con sus iconos.</li>
+        <li><strong>Los temporizadores de los objetivos épicos</strong>, a partir de los eventos del propio juego.</li>
+        <li><strong>El valor en oro de los objetos de cada jugador</strong>, calculado con los objetos que ya enseña la tabla de puntuación.</li>
+        <li><strong>Un aviso corto sobre tu propio equipo.</strong> Nunca lee al equipo rival, no coge el foco y no hace clics.</li>
+      </ul>
+      <p>Nunca enseña enfriamientos del rival, sus hechizos de invocador, posiciones ni campamentos de la jungla.</p>
+    </div>
+  </section>
+
+  <section class="seccion" id="equipo">
+    <div class="envoltura">
+      <h2>Para el equipo</h2>
+      <ul class="lista">
+        <li><strong>Jugadores.</strong> Los roles, la pool de campeones y la forma reciente de cada uno, medidos sobre sus propias partidas recientes.</li>
+        <li><strong>Planes de partida.</strong> Composiciones que los cinco podéis jugar de verdad, con quién va a cada rol y qué bans protegen el plan.</li>
+        <li><strong>Historial.</strong> Las partidas recientes del equipo, con filtros por cola, resultado, rol y campeón.</li>
+        <li><strong>Scouting de Clash.</strong> Antes de un partido de Clash, la plantilla rival que publica la API de Clash y los campeones que juegan.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="seccion" id="datos">
+    <div class="envoltura">
+      <h2>De dónde salen los datos</h2>
+      <p>Cada estadística lleva al lado el tamaño de su muestra. Si no hay datos suficientes, la app lo dice en vez de rellenar el hueco.</p>
+      <div class="tabla-envoltura">
+        <table>
+          <thead>
+            <tr><th scope="col">Fuente</th><th scope="col">Qué usamos</th><th scope="col">Cuándo y dónde</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>API de Riot: <code>match-v5</code>, <code>league-v4</code></td>
+              <td>Partidas clasificatorias Solo/Dúo de EUW, agregadas por campeón y rol: winrates, matchups, oro al 15, builds, páginas de runas y hechizos. Las ~100.000 partidas más recientes.</td>
+              <td>Un proceso nocturno en nuestro servidor de compilación. Los resultados van dentro de cada versión de la app.</td>
+            </tr>
+            <tr>
+              <td>API de Riot: <code>account-v1</code>, <code>league-v4</code>, <code>champion-mastery-v4</code>, <code>match-v5</code></td>
+              <td>Perfiles de los jugadores del equipo registrado: Riot ID, roles, maestría y partidas recientes.</td>
+              <td>Un proceso semanal en nuestro servidor de compilación, y cuando se pide.</td>
+            </tr>
+            <tr>
+              <td>API de Riot: <code>clash-v1</code>, <code>account-v1</code>, <code>match-v5</code></td>
+              <td>El scouting de Clash: la plantilla rival y los campeones que juegan. También el perfil de un suplente que se une al equipo un día.</td>
+              <td>Cuando se pide, desde el PC del capitán del equipo. El scouting se guarda 7 días.</td>
+            </tr>
+            <tr>
+              <td>API local del cliente de LoL</td>
+              <td>La sesión de champ select, la fase de la partida y, cuando pulsas Importar, tus páginas de runas, hechizos y sets de objetos.</td>
+              <td>En tu PC, mientras la app está abierta. No se envía a ninguna parte.</td>
+            </tr>
+            <tr>
+              <td>Live Client Data API (local)</td>
+              <td>Tu campeón y sus habilidades, los objetos de la tabla de puntuación y los eventos de la partida.</td>
+              <td>En tu PC, durante la partida, solo con el overlay activado.</td>
+            </tr>
+            <tr>
+              <td>Data Dragon</td>
+              <td>Nombres e imágenes de campeones, objetos, runas y hechizos.</td>
+              <td>Cada parche.</td>
+            </tr>
+            <tr>
+              <td>Nuestra base de campeones</td>
+              <td>Habilidades, control de masas, engage, peel y curva de poder de cada campeón, curados a mano.</td>
+              <td>Se revisa cada parche.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>El instalador no lleva ninguna clave, y la app nunca envía tus datos a ningún servidor nuestro. Nuestra clave de la API de Riot es un secreto del servidor de compilación; las dos herramientas del capitán usan la clave que pone el capitán en su propio PC.</p>
+    </div>
+  </section>
+
+  <section class="seccion" id="juego-limpio">
+    <div class="envoltura">
+      <h2>Juego limpio</h2>
+      <p>La herramienta está hecha para antes de la partida. Estas reglas están en el código, no son una promesa añadida después.</p>
+      <div class="dos-columnas">
+        <div class="columna">
+          <h3>Lo que hace</h3>
+          <ul>
+            <li>Usa solo interfaces oficiales de Riot: la API de Riot, la API local del cliente de LoL y la Live Client Data API.</li>
+            <li>Funciona en champ select y, si activas el overlay, durante la partida.</li>
+            <li>Da varias opciones con su porqué; decide el jugador.</li>
+            <li>Escribe runas, hechizos y objetos solo cuando pulsas un botón.</li>
+            <li>Enseña la fuente y la muestra de cada estadística.</li>
+          </ul>
+        </div>
+        <div class="columna no">
+          <h3>Lo que no hace nunca</h3>
+          <ul>
+            <li>Leer o modificar la memoria del juego, inyectar código o engancharse al juego.</li>
+            <li>Enseñar enfriamientos del rival, sus hechizos de invocador, posiciones ni campamentos de la jungla.</li>
+            <li>Destapar jugadores ocultos: los nombres del rival en el champ select de clasificatoria siguen ocultos.</li>
+            <li>Actuar por ti: nada de picks, bans, compras ni subidas de nivel automáticas.</li>
+            <li>Puntuar jugadores con un MMR o una estimación de elo.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion" id="estado">
+    <div class="envoltura">
+      <h2>Estado</h2>
+      <div class="estado">
+        <p><strong>En uso cerrado por el equipo OFI.</strong> La app se actualiza cada semana con datos nuevos. La versión pública llegará cuando Riot revise y apruebe el producto.</p>
+        <p>Los del equipo tenéis el enlace de descarga fijado en el Discord. Si revisas OFI Draft Tool para Riot Games, el enlace y las instrucciones de prueba están en nuestra solicitud.</p>
+      </div>
+      <p>Dudas o problemas: <a href="mailto:contact@ofidraft.com">contact@ofidraft.com</a>.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="envoltura">
+    <ul class="enlaces">
+      <li><a href="privacidad.html">Política de privacidad</a></li>
+      <li><a href="terminos.html">Términos de uso</a></li>
+      <li><a href="../" lang="en" hreflang="en">English</a></li>
+    </ul>
+    <p class="legal" lang="en">OFI Draft Tool isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+    <p class="legal">OFI Draft Tool no está respaldada por Riot Games y no refleja las opiniones de Riot Games ni de nadie que participe oficialmente en la producción o gestión de las propiedades de Riot Games. Riot Games y todas sus propiedades asociadas son marcas comerciales o marcas registradas de Riot Games, Inc.</p>
+    <p class="legal">Tipografía Archivo, con licencia <a href="../assets/fuentes/OFL.txt">SIL Open Font License</a>.</p>
+  </div>
+</footer>
+
+</body>
+</html>
