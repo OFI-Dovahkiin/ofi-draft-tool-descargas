@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tablero de champ select · OFI Draft Tool</title>
+<meta name="description" content="El tablero de OFI Draft Tool en champ select: los dos equipos, qué coger, qué banear y la armería con runas, objetos y hechizos.">
+<link rel="icon" href="/assets/icono.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/estilo.css">
+<link rel="canonical" href="https://ofidraft.com/funciones/champ-select/">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+
+<header class="cabecera">
+  <div class="envoltura">
+    <a class="marca" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="3" width="13" height="26" rx="3" fill="#2c5bd6"/><rect x="18" y="3" width="13" height="26" rx="3" fill="#bf363c"/><rect x="4" y="7" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="4" y="13" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="4" y="19" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="7" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="13" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="19" width="7" height="3" rx="1" fill="#fff" opacity=".85"/></svg>
+      OFI Draft Tool
+    </a>
+    <nav class="menu" aria-label="Principal">
+      <a href="/descargar/">Descargar</a>
+      <a href="/funciones/" aria-current="page">Qué hace</a>
+      <a href="/novedades/">Novedades</a>
+      <a href="/estado/">Datos</a>
+      <a href="/equipo/">Zona del equipo</a>
+      <a href="/fallo/">Avisar de un fallo</a>
+      <a href="/en/" lang="en" hreflang="en">English</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+<section class="cabeza">
+  <div class="envoltura">
+    <p class="ruta"><a href="/funciones/">Qué hace</a> › Tablero de champ select</p>
+    <h1>Tablero de champ select</h1>
+    <p class="entrada">Una ventana aparte que se abre sola al entrar en champ select y se queda al lado del cliente: los dos equipos en el orden del lobby, qué coger, qué banear y, al fijar campeón, la armería con runas, objetos y hechizos.</p>
+    <ul class="etiquetas"><li>Se abre solo</li><li>Lee el cliente</li><li>Importa con un botón</li></ul>
+  </div>
+</section>
+<div class="envoltura">
+<figure class="figura">
+  <img src="/assets/capturas/tablero.webp" width="1280" height="800" loading="lazy" decoding="async" alt="El tablero en un champ select de Clash: los cinco de cada lado y, en el centro, tres candidatos para el pick del support con su porqué.">
+  <figcaption>Vuestro turno: tres candidatos para el pick, cada uno con su porqué, la habilidad que manda y lo que os contestaría el rival. Datos de ejemplo.</figcaption>
+</figure>
+</div>
+
+<section class="bloque">
+  <div class="envoltura">
+    <h2>Cuándo se abre</h2>
+    <ul>
+      <li>Solo, al empezar el champ select, si está encendido «Abrir el tablero al empezar el champ select» (viene encendido). Se abre una vez por champ select, así que lo puedes minimizar.</li>
+      <li>O con «🖥 Abrir tablero», abajo en la barra lateral de la app. Nunca abre dos: si ya está abierto, lo trae al frente.</li>
+      <li>Mide 1600×940 y, como mínimo, 1280×800. No va encima de todo salvo que actives «Ventanas siempre encima».</li>
+      <li>Sin champ select dice «Esperando a que empiece un champ select.» y ofrece un ejemplo para verlo. En colas sin draft (ARAM, a ciegas, Arena) dice que no hay draft que analizar.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="bloque">
+  <div class="envoltura">
+    <h2>La cabecera</h2>
+    <ul>
+      <li>«VOSOTROS» en azul y «ELLOS» en rojo, cada uno con su lado; encima, la cola.</li>
+      <li>La fase en palabras —«DECLARACIÓN», «BANEOS», «PICKS», «BANEOS 2», «ÚLTIMOS AJUSTES»— y el segundero, que late en rojo en los últimos 10 segundos.</li>
+      <li>El veredicto corto de la teoría («Draft parejo», «Ventaja clara para ellos»…), con «provisional» mientras faltan picks.</li>
+      <li>Al acabar, «EN PARTIDA», «DRAFT CANCELADO» si alguien dodgea, o «PARTIDA TERMINADA».</li>
+    </ul>
+  </div>
+</section>
+
+<section class="bloque">
+  <div class="envoltura">
+    <h2>Los dos equipos</h2>
+    <ul>
+      <li>Cada asiento en el orden de pick del cliente (B1…R5), con el arte del campeón, su nombre y el puesto.</li>
+      <li>«ELIGIENDO» en quien elige (en todos los que eligen a la vez, de los dos lados) y «SIGUIENTE» en los que vienen. Un hover sale «sin confirmar» y con «?».</li>
+      <li>De los vuestros, su Riot ID sin el tag, y «sin medir» si no está entre los jugadores que sigue la app (entonces no filtra por lo que sabe jugar).</li>
+      <li>Del rival, ningún nombre: la app ni los lee. Su puesto lo deduce de los campeones (borde a trazos) y lo puedes corregir con un desplegable; lo corregido vale para todo el champ select y también en Análisis de draft.</li>
+      <li>Encima de cada columna, el estilo de la composición («Asedio», «Teamfight 5v5», «Mixta, tirando a…») en cuanto hay tres campeones por lado.</li>
+      <li>Los bans debajo de cada equipo, en orden y con los huecos que faltan; en Clash, 3 + 2.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="bloque">
+  <div class="envoltura">
+    <h2>Qué coger, en vuestro turno</h2>
+    <ul>
+      <li>Una columna por cada uno de los vuestros que elige a la vez, con la tuya marcada «tú», y tres candidatos en cada una.</li>
+      <li>De cada candidato: si el jugador lo domina («lo domina», «lo sabe jugar», «no lo tiene jugado», «sin jugarlo aquí»), el porqué en una frase corta y la pega, escrita.</li>
+      <li>Unas fichas con el tipo de razón (counter, sinergia, comp, línea, seguro, manos), la habilidad que manda con su icono y la cara del campeón al que responde.</li>
+      <li>«contestan» con la cara de la respuesta del rival, si os quitaría medio punto o más.</li>
+      <li>Al pasar el ratón, el detalle completo. Lo baneado no aparece y lo que conviene evitar sale atenuado.</li>
+      <li>Si el cliente no dice en qué puesto elegís, pregunta: «¿Para cuál?».</li>
+    </ul>
+  </div>
+</section>
+
+<section class="bloque">
+  <div class="envoltura">
+    <h2>Qué banear</h2>
+    <ul>
+      <li>Hasta tres bans que cambian algo, cada uno con su frase. No propone lo que los vuestros han declarado o sobrevuelan.</li>
+      <li>En Clash, si habéis scouteado al rival ese día, banea contra lo que juega cada uno de ellos y lo dice: «Contra lo que coge el rival scouteado hoy a las…».</li>
+      <li>Si ningún ban cambia nada, lo dice en vez de rellenar: «Con este draft no hay ban que cambie nada».</li>
+    </ul>
+  </div>
+</section>
+
+<section class="bloque">
+  <div class="envoltura">
+    <h2>Mientras eligen ellos, y al acabar</h2>
+    <ul>
+      <li>En su turno: una línea con vuestro plan, otra con el suyo, y la curva de poder (early, mid y late) con vuestra fase fuerte marcada.</li>
+      <li>Al cerrarse el champ select, el draft se queda en pantalla durante la carga con el <strong>plan de partida</strong> (por dónde jugar —«↑ ARRIBA» o «↓ ABAJO»—, la ventana, qué buscar, qué evitar y qué harán ellos), la <strong>jungla</strong> (qué línea se gankea fácil, con ayuda o cara, y por dónde empezáis) y la curva de poder.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="envoltura">
+<figure class="figura estrecha">
+  <img src="/assets/capturas/linea.webp" width="660" height="884" loading="lazy" decoding="async" alt="Detalle de la línea de ADC: lo que dice la teoría, el oro al 15 con su muestra y la guía del cruce.">
+  <figcaption>Una línea abierta: la teoría primero, el oro al 15 (aquí, heredado de la V1) y el winrate de contraste, y cómo se juega el cruce.</figcaption>
+</figure>
+</div>
+
+<section class="bloque">
+  <div class="envoltura">
+    <h2>Las cinco líneas</h2>
+    <ul>
+      <li>Abajo, los cinco cruces cara a cara, con una flecha simple o doble hacia quien va delante según la teoría.</li>
+      <li>Al pulsar uno: «Según la teoría», el «Oro al 15» (diciendo de dónde sale), el winrate con su muestra, las claves de este draft y la guía del cruce. Si no hay guía escrita, la deduce de los dos kits y lo avisa.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="envoltura">
+<figure class="figura">
+  <img src="/assets/capturas/armeria.webp" width="1280" height="800" loading="lazy" decoding="async" alt="La armería abierta al lado del tablero: runas, objetos por fases, hechizos y el botón de importar.">
+  <figcaption>La armería: se abre al fijar campeón y estrecha el tablero en vez de taparlo.</figcaption>
+</figure>
+</div>
+
+<section class="bloque">
+  <div class="envoltura">
+    <h2>La armería: runas, objetos y hechizos</h2>
+    <ul>
+      <li>Se abre sola al fijar campeón (se puede apagar en Configuración) y estrecha el tablero, no lo tapa. Al acabar el champ select se reabre, salvo que la cerraras tú.</li>
+      <li><strong>Runas</strong>: eliges entre las páginas de cada runa clave, cada una con en cuántas partidas se lleva.</li>
+      <li><strong>Objetos</strong>: hasta tres caminos de build (on-hit, letalidad, AP, tanque…) con una ★ en el recomendado contra su equipo; y por filas, iniciales, otra salida, early, botas, núcleo, situacionales, opcionales y la build completa, cada objeto con para qué sirve.</li>
+      <li><strong>Hechizos</strong>: la pareja más llevada. <strong>Habilidades</strong>: la prioridad y los 18 niveles, con las casillas «os invaden» e «invadís», que recalculan el orden.</li>
+      <li><strong>«Importar al cliente»</strong> lo escribe todo; o solo runas, solo objetos o solo hechizos. Te dice en verde lo que entró y en ámbar lo que no, y por qué.</li>
+      <li>Las runas van a una página suya, «OFI campeón puesto». Si ya tienes una página cuyo nombre empieza por «OFI », la reutiliza y la sobrescribe (ojo si alguna tuya se llama así); si no, crea una nueva y antes guarda en tu PC una copia de tu página activa. Si no te queda hueco para otra página, te lo dice. Los objetos van a un set «OFI…» de la tienda, con los otros caminos al lado. El Destello, en D o en F según tu ajuste.</li>
+      <li>Después del champ select se puede consultar, pero ya no importar.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="bloque">
+  <div class="envoltura">
+    <h2>Lo que no hace</h2>
+    <ul>
+      <li>No pickea, no banea, no sobrevuela ni cambia nada en el cliente, salvo lo que importas con el botón.</li>
+      <li>No lee ni enseña los nombres del rival.</li>
+      <li>Corregir el puesto de un rival solo cambia la app, no el cliente.</li>
+      <li>Todo lo saca de la API local del cliente de LoL de tu PC: la sesión de champ select y la fase de la partida. No mira la memoria del juego.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="envoltura">
+<nav class="siguiente" aria-label="Más funciones">
+  <a href="/funciones/"><small>Volver</small>← Qué hace</a>
+  <a href="/funciones/analisis/"><small>Siguiente</small>Análisis de draft →</a>
+</nav>
+</div>
+</main>
+
+<footer class="pie">
+  <div class="envoltura">
+    <div class="grupos">
+      <nav aria-label="La app">
+        <h2>La app</h2>
+        <ul>
+          <li><a href="/descargar/">Descargar</a></li>
+          <li><a href="/funciones/">Qué hace</a></li>
+          <li><a href="/novedades/">Novedades</a></li>
+          <li><a href="/estado/">Estado de los datos</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="El equipo">
+        <h2>El equipo</h2>
+        <ul>
+          <li><a href="/equipo/">Zona del equipo</a></li>
+          <li><a href="/fallo/">Avisar de un fallo</a></li>
+          <li><a href="mailto:contact@ofidraft.com">contact@ofidraft.com</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Legal">
+        <h2>Legal</h2>
+        <ul>
+          <li><a href="/privacidad/">Política de privacidad</a></li>
+          <li><a href="/terminos/">Términos de uso</a></li>
+          <li><a href="/en/" lang="en" hreflang="en">English</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="legal" lang="en">OFI Draft Tool isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+    <p class="legal">OFI Draft Tool no está respaldada por Riot Games y no refleja las opiniones de Riot Games ni de nadie que participe oficialmente en la producción o gestión de las propiedades de Riot Games. Riot Games y todas sus propiedades asociadas son marcas comerciales o marcas registradas de Riot Games, Inc.</p>
+    <p class="legal">Letra Archivo, con licencia <a href="/assets/fuentes/OFL.txt">SIL Open Font License</a>.</p>
+  </div>
+</footer>
+
+</body>
+</html>

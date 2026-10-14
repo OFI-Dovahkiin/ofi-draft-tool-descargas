@@ -1,0 +1,7 @@
+# Lo de wrangler en local: no se sube nunca.
+.dev.vars
+.dev.vars.*
+.env
+.env.*
+.wrangler/
+node_modules/

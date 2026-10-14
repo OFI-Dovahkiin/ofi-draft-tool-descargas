@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Equipo · OFI Draft Tool</title>
+<meta name="description" content="La pestaña Equipo de OFI Draft Tool: cinco planes de partida para vuestros cinco, con alineación, suplentes, bans y scouting del rival.">
+<link rel="icon" href="/assets/icono.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/estilo.css">
+<link rel="canonical" href="https://ofidraft.com/funciones/equipo/">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+
+<header class="cabecera">
+  <div class="envoltura">
+    <a class="marca" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="3" width="13" height="26" rx="3" fill="#2c5bd6"/><rect x="18" y="3" width="13" height="26" rx="3" fill="#bf363c"/><rect x="4" y="7" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="4" y="13" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="4" y="19" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="7" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="13" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="19" width="7" height="3" rx="1" fill="#fff" opacity=".85"/></svg>
+      OFI Draft Tool
+    </a>
+    <nav class="menu" aria-label="Principal">
+      <a href="/descargar/">Descargar</a>
+      <a href="/funciones/" aria-current="page">Qué hace</a>
+      <a href="/novedades/">Novedades</a>
+      <a href="/estado/">Datos</a>
+      <a href="/equipo/">Zona del equipo</a>
+      <a href="/fallo/">Avisar de un fallo</a>
+      <a href="/en/" lang="en" hreflang="en">English</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+<section class="cabeza">
+  <div class="envoltura">
+    <p class="ruta"><a href="/funciones/">Qué hace</a> › Equipo</p>
+    <h1>Equipo</h1>
+    <p class="entrada">Para preparar el Clash: eliges a los cinco y la app propone un plan de partida por cada tipo de composición, con quién juega qué, con qué campeón, quién entra si os lo banean y qué banear.</p>
+    <ul class="etiquetas"><li>Antes del Clash</li><li>Cinco planes</li><li>Scouting del rival</li></ul>
+  </div>
+</section>
+<div class="envoltura">
+<figure class="figura">
+  <img src="/assets/capturas/equipo.webp" width="1280" height="1100" loading="lazy" decoding="async" alt="La pestaña Equipo: el mapa con los cinco puestos y, debajo, los planes de partida con la alineación de cada uno.">
+  <figcaption>Los cinco en el mapa y los planes que salen con ellos. Datos de ejemplo: nombres inventados y cifras cambiadas.</figcaption>
+</figure>
+</div>
+
+<section class="bloque">
+  <div class="envoltura">
+    <h2>Elegir a los cinco</h2>
+    <ul>
+      <li>Un mapa de la Grieta con cinco tarjetas, una por puesto. En cada una eliges al jugador; el desplegable dice qué parte de sus partidas juega ahí.</li>
+      <li>Debajo, su rango y su «perfil →», cuántas partidas lleva en ese puesto y cuántas gana, y su pool ahí: hasta cinco campeones con sus partidas, con el borde según la maestría.</li>
+      <li>La alineación se guarda. «Ver los cinco planes» se activa con cinco jugadores distintos: los huecos son solo para elegir a los cinco, el reparto de puestos lo decide cada plan.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="bloque">
+  <div class="envoltura">
+    <h2>Los planes</h2>
+    <ul>
+      <li>Uno por tipo de composición: «Dive», «Teamfight 5v5», «Asedio», «Pick & Catch», «Splitpush 1-3-1» y «Presencia global». Si no salen cinco tipos, rellena con «Mixta, tirando a…» y lo dice.</li>
+      <li>Cada plan dice su tipo, lo difícil que es de ejecutar (de «Muy fácil» a «Muy difícil») y por qué, su ventana (temprana, media o tardía), qué cambia respecto al anterior y su consigna.</li>
+      <li>La alineación: cada jugador con su campeón, sus partidas recientes y su maestría, y «si le banean:» con el suplente y lo que cuesta perder al titular («sin apenas pérdida», «se nota», «os descoloca el plan»).</li>
+      <li>Al abrir un plan: «Qué banear con este plan» (hasta cinco, cada uno con su frase y sus números), «Lo que tenéis» (sinergias), «Le falta:» (los ejes donde flojea), avisos de anti-sinergias y «De dónde sale la nota», pieza a pieza.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="bloque">
+  <div class="envoltura">
+    <h2>Qué os duele que baneen</h2>
+    <ul>
+      <li>Los titulares cuyo ban más os quita, sacados de los cinco planes. Primero, en rojo, los que no tienen recambio medido.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="bloque">
+  <div class="envoltura">
+    <h2>Scouting del rival</h2>
+    <ul>
+      <li>Escribes los cinco Riot ID del rival y la app baja de la API de Riot su rango, su maestría y hasta 20 partidas de cada cola (Normal Draft, Solo/Dúo, Flexible y Clash).</li>
+      <li>Sale «A quién banearle» (su confort en cada puesto, su maestría alta) y una tarjeta por rival con su puesto principal y sus campeones más jugados.</li>
+      <li>Desde ese momento, los planes y sus bans se miden contra ese rival, y si es del mismo día, también «Qué banear» en el champ select de Clash.</li>
+      <li>Los nombres solo se usan ahí, nunca se publican y el scouting se borra solo a los 7 días.</li>
+      <li>Hoy solo funciona en el PC preparado para ello (necesita Python y una clave de Riot). Está previsto llevarlo a la zona del equipo de la web.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="bloque">
+  <div class="envoltura">
+    <h2>Traer a alguien de fuera</h2>
+    <ul>
+      <li>Para un suplente que no está en el equipo: escribes su Nombre#TAG y la app baja lo mismo que en el scouting: su rango, su maestría y hasta 20 partidas de cada cola.</li>
+      <li>Entra en los desplegables, los planes, las recomendaciones y Jugadores de ese PC, también al cerrar y volver a abrir la app, hasta que pulsas «Quitarlos», que lo saca de la app. Lo que se bajó de él se queda en la carpeta de datos de ese PC.</li>
+      <li>Además lo apunta en la lista de jugadores que sigue la app. En el PC preparado esa lista es la del repositorio: cuando se sube, desde el martes siguiente sus datos se bajan con los del resto y van dentro de la app de todos. «Quitarlos» no lo borra de esa lista: hay que quitarlo a mano.</li>
+      <li>Igual que el scouting, hoy solo funciona en el PC preparado para ello.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="bloque">
+  <div class="envoltura">
+    <h2>De dónde sale la nota</h2>
+    <ul>
+      <li>Lo que más pesa son las partidas de cada uno con ese campeón en ese puesto; después, lo fuerte que está el campeón en el parche; y luego, cómo encaja todo (sinergias y composición) y cómo le va al motor contra lo más jugado o contra el rival scouteado.</li>
+      <li>La maestría no suma: solo filtra lo que cada uno sabe jugar. Para ser titular con un campeón hacen falta 5 partidas con él en ese puesto.</li>
+      <li>Los datos de cada uno —Normal Draft, Solo/Dúo, Flexible y Clash desde septiembre de 2024, la maestría y el rango— se bajan de la API de Riot cada martes y llegan con la versión siguiente.</li>
+      <li>Sin rival delante no da probabilidad de victoria: lo dice así.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="envoltura">
+<nav class="siguiente" aria-label="Más funciones">
+  <a href="/funciones/analisis/"><small>Anterior</small>← Análisis de draft</a>
+  <a href="/funciones/jugadores/"><small>Siguiente</small>Jugadores →</a>
+</nav>
+</div>
+</main>
+
+<footer class="pie">
+  <div class="envoltura">
+    <div class="grupos">
+      <nav aria-label="La app">
+        <h2>La app</h2>
+        <ul>
+          <li><a href="/descargar/">Descargar</a></li>
+          <li><a href="/funciones/">Qué hace</a></li>
+          <li><a href="/novedades/">Novedades</a></li>
+          <li><a href="/estado/">Estado de los datos</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="El equipo">
+        <h2>El equipo</h2>
+        <ul>
+          <li><a href="/equipo/">Zona del equipo</a></li>
+          <li><a href="/fallo/">Avisar de un fallo</a></li>
+          <li><a href="mailto:contact@ofidraft.com">contact@ofidraft.com</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Legal">
+        <h2>Legal</h2>
+        <ul>
+          <li><a href="/privacidad/">Política de privacidad</a></li>
+          <li><a href="/terminos/">Términos de uso</a></li>
+          <li><a href="/en/" lang="en" hreflang="en">English</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="legal" lang="en">OFI Draft Tool isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+    <p class="legal">OFI Draft Tool no está respaldada por Riot Games y no refleja las opiniones de Riot Games ni de nadie que participe oficialmente en la producción o gestión de las propiedades de Riot Games. Riot Games y todas sus propiedades asociadas son marcas comerciales o marcas registradas de Riot Games, Inc.</p>
+    <p class="legal">Letra Archivo, con licencia <a href="/assets/fuentes/OFL.txt">SIL Open Font License</a>.</p>
+  </div>
+</footer>
+
+</body>
+</html>

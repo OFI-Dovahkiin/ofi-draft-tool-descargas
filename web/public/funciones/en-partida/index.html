@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>En partida · OFI Draft Tool</title>
+<meta name="description" content="El overlay opcional de OFI Draft Tool en partida: plan, objeto que falta, habilidad, objetivos y oro en objetos, con datos oficiales del juego.">
+<link rel="icon" href="/assets/icono.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/estilo.css">
+<link rel="canonical" href="https://ofidraft.com/funciones/en-partida/">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+
+<header class="cabecera">
+  <div class="envoltura">
+    <a class="marca" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="3" width="13" height="26" rx="3" fill="#2c5bd6"/><rect x="18" y="3" width="13" height="26" rx="3" fill="#bf363c"/><rect x="4" y="7" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="4" y="13" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="4" y="19" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="7" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="13" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="19" width="7" height="3" rx="1" fill="#fff" opacity=".85"/></svg>
+      OFI Draft Tool
+    </a>
+    <nav class="menu" aria-label="Principal">
+      <a href="/descargar/">Descargar</a>
+      <a href="/funciones/" aria-current="page">Qué hace</a>
+      <a href="/novedades/">Novedades</a>
+      <a href="/estado/">Datos</a>
+      <a href="/equipo/">Zona del equipo</a>
+      <a href="/fallo/">Avisar de un fallo</a>
+      <a href="/en/" lang="en" hreflang="en">English</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+<section class="cabeza">
+  <div class="envoltura">
+    <p class="ruta"><a href="/funciones/">Qué hace</a> › En partida (overlay)</p>
+    <h1>En partida (overlay)</h1>
+    <p class="entrada">Una capa pequeña y transparente arriba a la derecha durante la partida, solo si la activas: tu plan, lo que te falta, qué habilidad subir, los objetivos y el oro en objetos.</p>
+    <ul class="etiquetas"><li>Opcional</li><li>Solo datos oficiales</li><li>No estorba</li></ul>
+  </div>
+</section>
+<div class="envoltura">
+<div class="figuras-dos">
+<figure class="figura mini">
+  <img src="/assets/capturas/overlay.webp" width="340" height="225" loading="lazy" decoding="async" alt="El overlay en el minuto 18 de una partida: el reloj y el nivel, el plan, el objeto que te falta, la habilidad que toca, los objetivos y el oro en objetos.">
+  <figcaption>Una partida de ejemplo, a tamaño real.</figcaption>
+</figure>
+<figure class="figura mini">
+  <img src="/assets/capturas/overlay-aviso.webp" width="340" height="225" loading="lazy" decoding="async" alt="El mismo overlay unos segundos antes, a 1:30 del Barón: una banda con «BARÓN ~1:29» tapa la cabecera.">
+  <figcaption>A 1:30 del Barón, el aviso tapa la cabecera unos segundos.</figcaption>
+</figure>
+</div>
+</div>
+
+<section class="bloque">
+  <div class="envoltura">
+    <h2>Cómo se activa</h2>
+    <ul>
+      <li>En Configuración, con «Overlay durante la partida». Viene apagado. Vale en cuanto lo cambias, también con la partida empezada.</li>
+      <li>Sale en partidas de la Grieta del Invocador (no en ARAM, Arena, URF ni en la herramienta de práctica), y solo cuando el juego ya da datos de esa partida.</li>
+      <li>Se ve con el juego en «Ventana» o «Sin bordes»; en pantalla completa Windows no deja dibujar encima.</li>
+      <li>Va arriba a la derecha, debajo del marcador y de los FPS y lejos del minimapa. El ratón la atraviesa, no roba el foco ni sale en la barra de tareas. Se esconde sola al acabar la partida.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="bloque">
+  <div class="envoltura">
+    <h2>Lo que enseña</h2>
+    <ul>
+      <li><strong>Cabecera</strong>: el reloj de la partida y tu nivel.</li>
+      <li><strong>Aviso de objetivo</strong>: a 1:30, 1:00 y 0:30 del objetivo más cercano, una banda que parpadea unos segundos encima de la cabecera («BARÓN ~1:29»), en ámbar, naranja y rojo. Dice qué sale y cuándo, nunca qué hacer.</li>
+      <li><strong>«PLAN»</strong>: el estilo de tu equipo y el resumen del plan del draft de esa partida. Si la app no vio el champ select, no se lo inventa.</li>
+      <li><strong>«TE FALTA»</strong>: el siguiente objeto de tu build que aún no llevas, con el oro que te falta para cerrarlo contando las piezas que ya llevas y lo que tienes («faltan 320g»), o «✓ llegas».</li>
+      <li><strong>«HABILIDAD»</strong>: qué subir ahora y en qué parte de las partidas medidas se sube esa en este punto («SUBE R · 77 % (1513 partidas)»).</li>
+      <li><strong>«OBJETIVOS»</strong>: los tres más cercanos (dragón, larvas, heraldo, barón) con su cuenta o «YA». Con «~» delante, la cuenta sale del horario del parche; sin él, de cuándo murió en esta partida.</li>
+      <li><strong>«ORO EN OBJETOS»</strong>: dos diferencias, la de tu equipo con el suyo («equipos +1.275») y la tuya con tu rival de línea («tu línea +850»), sacadas de los objetos que lleva cada uno. Desde la próxima versión cuentan cada objeto por su precio de tienda (hasta ahora salían mal) y llevan al lado, en gris, tu oro sin gastar, como en la captura. Solo sale cuando se han leído los diez jugadores.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="bloque">
+  <div class="envoltura">
+    <h2>Lo que lee y lo que no</h2>
+    <ul>
+      <li>Solo la API oficial del juego en tu PC (Live Client Data), cada 2 segundos: tu campeón, nivel, oro, habilidades y objetos; de los otros nueve, su lado, puesto y objetos, que convierte al momento en una cifra de oro; y cuándo muere cada objetivo.</li>
+      <li>No lee la memoria del juego, no pulsa teclas, no compra y no sube habilidades: solo enseña.</li>
+      <li>No da nada del rival que no veas ya: ni enfriamientos, ni posiciones, ni nombres.</li>
+      <li>Lo que apunta en el diario de sesión se queda en tu PC.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="envoltura">
+<nav class="siguiente" aria-label="Más funciones">
+  <a href="/funciones/historial/"><small>Anterior</small>← Historial</a>
+  <a href="/funciones/centro-y-ajustes/"><small>Siguiente</small>Centro de mando y ajustes →</a>
+</nav>
+</div>
+</main>
+
+<footer class="pie">
+  <div class="envoltura">
+    <div class="grupos">
+      <nav aria-label="La app">
+        <h2>La app</h2>
+        <ul>
+          <li><a href="/descargar/">Descargar</a></li>
+          <li><a href="/funciones/">Qué hace</a></li>
+          <li><a href="/novedades/">Novedades</a></li>
+          <li><a href="/estado/">Estado de los datos</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="El equipo">
+        <h2>El equipo</h2>
+        <ul>
+          <li><a href="/equipo/">Zona del equipo</a></li>
+          <li><a href="/fallo/">Avisar de un fallo</a></li>
+          <li><a href="mailto:contact@ofidraft.com">contact@ofidraft.com</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Legal">
+        <h2>Legal</h2>
+        <ul>
+          <li><a href="/privacidad/">Política de privacidad</a></li>
+          <li><a href="/terminos/">Términos de uso</a></li>
+          <li><a href="/en/" lang="en" hreflang="en">English</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="legal" lang="en">OFI Draft Tool isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+    <p class="legal">OFI Draft Tool no está respaldada por Riot Games y no refleja las opiniones de Riot Games ni de nadie que participe oficialmente en la producción o gestión de las propiedades de Riot Games. Riot Games y todas sus propiedades asociadas son marcas comerciales o marcas registradas de Riot Games, Inc.</p>
+    <p class="legal">Letra Archivo, con licencia <a href="/assets/fuentes/OFL.txt">SIL Open Font License</a>.</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -18,6 +18,7 @@
     </a>
     <nav class="menu" aria-label="Principal">
       <a href="#como">Cómo funciona</a>
+      <a href="#pantallas">Pantallas</a>
       <a href="#en-partida">En partida</a>
       <a href="#datos">Datos</a>
       <a href="#juego-limpio">Juego limpio</a>
@@ -88,6 +89,33 @@
     </div>
   </section>
 
+  <section class="seccion" id="pantallas">
+    <div class="envoltura">
+      <h2>Cómo se ve</h2>
+      <p class="texto-suave">Pantallas reales de la app. Los nombres de los jugadores están tapados en estas imágenes.</p>
+      <div class="capturas">
+        <figure class="ancha">
+          <img src="../assets/capturas/tablero.webp" width="1280" height="800" alt="El tablero durante el champ select: los dos equipos y tres opciones de pick para quien elige, cada una con su porqué.">
+          <figcaption>Champ select. Tres opciones para tu pick, cada una con su porqué y el campeón que la contesta.</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/capturas/linea.webp" width="660" height="825" alt="Detalle de la línea de ADC: lo que dice la teoría, el oro al 15 con su muestra y una guía del cruce.">
+          <figcaption>Una línea en detalle: lo que dice la teoría, el oro al 15 con su muestra y cómo se juega el cruce.</figcaption>
+        </figure>
+        <div class="columna-capturas">
+          <figure>
+            <img src="../assets/capturas/overlay.webp" width="340" height="176" alt="El overlay opcional en partida: plan, objeto que falta, habilidad que toca con su muestra, objetivo siguiente y oro en objetos.">
+            <figcaption>El overlay opcional en partida.</figcaption>
+          </figure>
+          <figure>
+            <img src="../assets/capturas/tierlist.webp" width="910" height="720" alt="Tier list por puesto, con el parche, el tamaño de la muestra y los elos de los datos.">
+            <figcaption>Tier list por puesto. Dice de qué parche y de qué elos son los datos.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="seccion" id="como">
     <div class="envoltura">
       <h2>Cómo se usa</h2>
@@ -105,10 +133,11 @@
       <h2>En partida, solo si lo activas</h2>
       <p>El overlay es opcional y se apaga en los ajustes. Es una ventana transparente encima del juego que solo se alimenta de la Live Client Data API de Riot, la interfaz local que ofrece el propio juego. Nunca lee la memoria del juego.</p>
       <ul class="lista">
-        <li><strong>Tu orden de subida de habilidades</strong>, con sus iconos.</li>
-        <li><strong>Los temporizadores de los objetivos épicos</strong>, a partir de los eventos del propio juego.</li>
-        <li><strong>El valor en oro de los objetos de cada jugador</strong>, calculado con los objetos que ya enseña la tabla de puntuación.</li>
-        <li><strong>Un aviso corto sobre tu propio equipo.</strong> Nunca lee al equipo rival, no coge el foco y no hace clics.</li>
+        <li><strong>El plan de partida de tu draft</strong>: el estilo de tu composición y cómo gana.</li>
+        <li><strong>Qué habilidad subir ahora</strong>, según el orden de subida medido en partidas clasificatorias, con su muestra.</li>
+        <li><strong>El siguiente objeto de tu build</strong> que aún no tienes.</li>
+        <li><strong>Los temporizadores de los objetivos épicos</strong>, a partir de los eventos del propio juego, con un aviso a 1:30, 1:00 y 0:30 que dice qué objetivo y cuándo. Nunca dice qué hacer.</li>
+        <li><strong>El oro en objetos</strong>, tu equipo contra el suyo y tú contra tu rival de línea, calculado con los objetos que ya enseña la tabla de puntuación y enseñado solo como dos totales.</li>
       </ul>
       <p>Nunca enseña enfriamientos del rival, sus hechizos de invocador, posiciones ni campamentos de la jungla.</p>
     </div>
@@ -158,7 +187,7 @@
             </tr>
             <tr>
               <td>Live Client Data API (local)</td>
-              <td>Tu campeón y sus habilidades, los objetos de la tabla de puntuación y los eventos de la partida.</td>
+              <td>Tu campeón, nivel, oro, objetos y habilidades; los objetos de la tabla de puntuación; los eventos de la partida.</td>
               <td>En tu PC, durante la partida, solo con el overlay activado.</td>
             </tr>
             <tr>

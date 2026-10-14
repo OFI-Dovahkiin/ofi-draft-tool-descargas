@@ -1,10 +1,42 @@
-// La web de OFI Draft Tool en Cloudflare: solo ficheros estáticos, sin código de servidor.
-// Cloudflare la publica sola en cada subida que toque la carpeta web/.
+// La web de OFI Draft Tool (ofidraft.com): páginas estáticas en `public/` y
+// un Worker pequeño en `src/index.js` para lo que necesita algo más.
+// Se publica sola con cada cambio en la carpeta `web/` del repositorio de
+// descargas (Workers Builds, en Cloudflare).
 {
   "name": "ofi-draft-tool-web",
+  "main": "src/index.js",
   "compatibility_date": "2026-10-12",
+  // La dirección *.workers.dev y las de vista previa saltarían Cloudflare
+  // Access (la zona del equipo): solo se entra por ofidraft.com.
+  "workers_dev": false,
+  "preview_urls": false,
   "assets": {
     "directory": "./public",
-    "not_found_handling": "404-page"
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    // Solo estas rutas pasan por el Worker; lo demás son ficheros, que no
+    // cuentan para el límite diario del plan gratuito. La descarga del
+    // instalador tampoco: es una redirección de `public/_redirects`.
+    "run_worker_first": ["/api/*", "/equipo", "/equipo/*", "/datos/*"]
+  },
+  // El formulario de «Avisar de un fallo» manda un correo. A quién: el
+  // secreto DESTINO, que se pone en Cloudflare y no aquí (este repositorio
+  // es público).
+  "send_email": [{ "name": "CORREO" }],
+  "vars": {
+    "REMITENTE": "web@ofidraft.com"
+  },
+  // Opcional: un limitador de Cloudflare para el formulario, además del que
+  // lleva el Worker con la caché. Si se quiere, se quita el `//` de la línea
+  // de abajo (si el plan no lo admite, el despliegue falla y lo dice; entonces
+  // se vuelve a poner).
+  // "ratelimits": [{ "name": "LIMITE_FALLO", "namespace_id": "1001", "simple": { "limit": 3, "period": 60 } }],
+  // Los mensajes de error del Worker (console.error), para poder arreglarlo;
+  // NO el registro automático de cada petición, que guarda la IP y el
+  // navegador de quien visita (la política de privacidad lo dice así).
+  "observability": {
+    "enabled": true,
+    "logs": { "enabled": true, "invocation_logs": false },
+    "traces": { "enabled": false }
   }
 }

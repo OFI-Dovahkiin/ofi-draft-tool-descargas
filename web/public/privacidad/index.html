@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de privacidad · OFI Draft Tool</title>
+<meta name="description" content="Política de privacidad · OFI Draft Tool">
+<link rel="icon" href="/assets/icono.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/estilo.css">
+<link rel="canonical" href="https://ofidraft.com/privacidad/">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+
+<header class="cabecera">
+  <div class="envoltura">
+    <a class="marca" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="3" width="13" height="26" rx="3" fill="#2c5bd6"/><rect x="18" y="3" width="13" height="26" rx="3" fill="#bf363c"/><rect x="4" y="7" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="4" y="13" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="4" y="19" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="7" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="13" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="19" width="7" height="3" rx="1" fill="#fff" opacity=".85"/></svg>
+      OFI Draft Tool
+    </a>
+    <nav class="menu" aria-label="Principal">
+      <a href="/descargar/">Descargar</a>
+      <a href="/funciones/">Qué hace</a>
+      <a href="/novedades/">Novedades</a>
+      <a href="/estado/">Datos</a>
+      <a href="/equipo/">Zona del equipo</a>
+      <a href="/fallo/">Avisar de un fallo</a>
+      <a href="/en/" lang="en" hreflang="en">English</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+<section class="documento">
+  <div class="envoltura">
+    <h1>Política de privacidad</h1>
+    <p class="fecha">Última actualización: 14 de octubre de 2026</p>
+
+    <p>OFI Draft Tool es una app gratuita para Windows y esta web. Las dos las hace un desarrollador independiente que vive en España (GitHub: OFI-Dovahkiin), que es el responsable de los datos que se describen aquí. Si algo no queda claro, escribe a <a href="mailto:contact@ofidraft.com">contact@ofidraft.com</a>.</p>
+
+    <h2>En pocas palabras</h2>
+    <ul>
+      <li>No hay cuentas ni analítica, ni en la app ni en la web.</li>
+      <li>Lo que la app lee de tu cliente de LoL y del juego se queda en tu PC.</li>
+      <li>Las estadísticas que publicamos son agregadas. La excepción son los perfiles de los jugadores del equipo OFI, que van dentro de la app (más abajo).</li>
+    </ul>
+
+    <h2>Esta web</h2>
+    <p>La web son unas páginas y un pequeño servidor, los dos alojados en Cloudflare. No tiene analítica, no carga scripts ni fuentes de terceros y no pone cookies; la única será la de inicio de sesión de la zona del equipo (<code>CF_Authorization</code>, de Cloudflare Access), cuando se abra, y solo a quien entre en ella. Cloudflare trata datos técnicos como tu dirección IP para servir las páginas y protegerlas de abusos; consulta la <a href="https://www.cloudflare.com/privacypolicy/">política de privacidad de Cloudflare</a>. Si algo falla en el servidor, Cloudflare guarda unos días los mensajes de error, para poder arreglarlo; en ellos no escribimos lo que envías ni tu dirección IP.</p>
+    <p>El formulario para avisar de un fallo le manda al desarrollador un correo con lo que escribes, lo que adjuntes, el navegador que usas (su «user agent») y el país en el que Cloudflare sitúa tu conexión. No se guarda en la web. Para frenar envíos en masa, el servidor recuerda durante 10 minutos cuántos avisos han llegado desde tu conexión, con un resumen (hash) de tu dirección IP y no con la dirección. El correo que llega a contact@ofidraft.com lo reenvía Cloudflare al buzón del desarrollador.</p>
+
+    <h2>La app en tu PC</h2>
+    <p>La app se conecta a:</p>
+    <ul>
+      <li><strong>El cliente de LoL de tu propio PC</strong>, por su API local. Lee la sesión de champ select (campeones, bans, posiciones y los nombres que tu cliente enseña de tu propio equipo), la fase de la partida, la sala (el Riot ID y el puesto preferido de cada uno), tu invocador y la lista de colas. Para enterarse de los cambios escucha los avisos del cliente, que traen también otras cosas (el chat, los amigos…): las descarta al llegar, sin guardarlas. Cuando pulsas Importar, escribe tus hechizos de invocador, un set de objetos y una página de runas propia, cuyo nombre empieza por «OFI ». Si ya tienes una página que empiece así, la reutiliza y la sobrescribe; si no, crea una y antes guarda en tu PC una copia de tu página activa.</li>
+      <li><strong>El juego de tu propio PC</strong>, por la Live Client Data API local de Riot, y solo si activas el overlay: tu campeón, nivel, oro, objetos y habilidades; el lado, el puesto y los objetos de los otros nueve, que convierte al momento en una cifra de oro; y cuándo muere cada objetivo épico.</li>
+      <li><strong>Data Dragon de Riot</strong> (ddragon.leagueoflegends.com), para cargar las imágenes de campeones, objetos, runas y habilidades. Riot ve tu dirección IP, como con cualquier imagen de internet.</li>
+      <li><strong>Google Fonts</strong> (fonts.googleapis.com y fonts.gstatic.com), para cargar los tipos de letra de la app. Google ve tu dirección IP; consulta la <a href="https://policies.google.com/privacy?hl=es">política de privacidad de Google</a>.</li>
+      <li><strong>GitHub</strong>, para buscar versiones nuevas y descargarlas. GitHub ve tu dirección IP, como en cualquier descarga. Consulta la <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">declaración de privacidad de GitHub</a>.</li>
+    </ul>
+    <p>Lo que la app lee del cliente y del juego no sale nunca de tu PC. La app guarda estos ficheros en tu carpeta de usuario; nunca los sube a ninguna parte y puedes borrarlos cuando quieras:</p>
+    <ul>
+      <li>Tus ajustes, en <code>%LOCALAPPDATA%\OFI Draft Clash Tool</code>.</li>
+      <li>Un diario de sesión con lo que te ha recomendado, para repasarlo, y un registro de errores, en <code>%LOCALAPPDATA%\OFI Draft Gap Tool V2</code>.</li>
+      <li>En <code>%APPDATA%\com.ofi.draftgaptool</code>: la alineación que eliges en Equipo, la lista de jugadores que sigue la app, el scouting de Clash (se borra a los 7 días), lo que se baja de los suplentes que traigas (se queda aunque pulses «Quitarlos», hasta que lo borres), una copia de tu página de runas activa cada vez que importa runas en una página nueva (las 10 últimas) y una nota de la última actualización que intentó.</li>
+    </ul>
+
+    <h2>Datos que se tratan con la API de Riot</h2>
+    <ul>
+      <li><strong>Partidas clasificatorias.</strong> Un proceso programado en nuestro servidor de compilación descarga partidas públicas de Solo/Dúo del servidor EUW con la API oficial de Riot Games y las agrega por campeón y rol. Las partidas descargadas se quedan en nuestro entorno privado de compilación mientras hacen falta para las estadísticas. En la app solo se publican agregados, sin datos de ningún jugador.</li>
+      <li><strong>Perfiles del equipo.</strong> De los jugadores que están en la lista del equipo OFI, y solo de ellos, un proceso semanal guarda su Riot ID, su PUUID (el identificador de jugador de Riot), su rango, su maestría de campeones y todas sus partidas de Normal Draft, Solo/Dúo, Flexible y Clash desde septiembre de 2024, que la app enseña en Jugadores, Equipo e Historial. La app lleva además un resumen de la carrera de cada uno que su primera versión sacó de op.gg, y que estamos quitando. Estos perfiles van dentro de la app, y la app se puede descargar desde esta web. Antes de una versión pública, los datos de cada equipo solo le llegarán a ese equipo. Cualquier jugador puede pedir que se le quite escribiendo a <a href="mailto:contact@ofidraft.com">contact@ofidraft.com</a>: desde la siguiente versión semanal ya no va en la app, y retiramos de las descargas las versiones anteriores que lo llevaban. Las copias ya instaladas lo pierden al actualizarse.</li>
+      <li><strong>Herramientas del capitán.</strong> Dos herramientas, el scouting de Clash y traer a un suplente, funcionan en el PC del capitán del equipo con una clave de la API de Riot puesta en ese PC. De los Riot ID que escribe el capitán leen el rango, la maestría de campeones y hasta 20 partidas públicas de cada una de cuatro colas. El scouting sirve para preparar ese partido, no se publica nunca y se borra a los 7 días. Traer a un suplente, además, lo apunta en la lista del equipo: desde la siguiente actualización semanal sus datos se tratan como los de un jugador más (arriba), hasta que se le quita de esa lista. «Quitarlos» lo saca de la app en ese PC, pero lo bajado se queda en la carpeta de datos de ese PC hasta que se borra.</li>
+    </ul>
+    <p>Usamos estos datos porque hacen falta para lo que hace la app: enseñar estadísticas de partidas públicas y ayudar a un equipo a preparar sus partidos. No los vendemos ni los compartimos, y no los usamos para publicidad.</p>
+
+    <h2>Quién más trata datos</h2>
+    <p>GitHub mueve nuestro servidor de compilación y aloja las descargas, Cloudflare aloja esta web y reenvía su correo, y Google sirve los tipos de letra de la app. Las tres tienen sede en Estados Unidos y tratan los datos según sus propias políticas de privacidad, enlazadas arriba, que explican las garantías que aplican a las transferencias desde la Unión Europea.</p>
+
+    <h2>Tus derechos</h2>
+    <p>Puedes preguntar qué datos tenemos sobre ti, pedir que se corrijan o se borren, u oponerte a que se usen, escribiendo a <a href="mailto:contact@ofidraft.com">contact@ofidraft.com</a>. Contestamos en menos de un mes. Si crees que no hemos tratado bien tus datos, puedes reclamar ante la <a href="https://www.aepd.es/">Agencia Española de Protección de Datos</a>.</p>
+
+    <h2>Menores</h2>
+    <p>La app no te pide ni recoge datos personales. Si tienes menos de 14 años, pregunta a tu padre, madre o tutor antes de usarla.</p>
+
+    <h2>Cambios</h2>
+    <p>Si esta política cambia, la versión nueva se publicará en esta página con su fecha.</p>
+
+  </div>
+</section>
+</main>
+
+<footer class="pie">
+  <div class="envoltura">
+    <div class="grupos">
+      <nav aria-label="La app">
+        <h2>La app</h2>
+        <ul>
+          <li><a href="/descargar/">Descargar</a></li>
+          <li><a href="/funciones/">Qué hace</a></li>
+          <li><a href="/novedades/">Novedades</a></li>
+          <li><a href="/estado/">Estado de los datos</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="El equipo">
+        <h2>El equipo</h2>
+        <ul>
+          <li><a href="/equipo/">Zona del equipo</a></li>
+          <li><a href="/fallo/">Avisar de un fallo</a></li>
+          <li><a href="mailto:contact@ofidraft.com">contact@ofidraft.com</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Legal">
+        <h2>Legal</h2>
+        <ul>
+          <li><a href="/privacidad/">Política de privacidad</a></li>
+          <li><a href="/terminos/">Términos de uso</a></li>
+          <li><a href="/en/" lang="en" hreflang="en">English</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="legal" lang="en">OFI Draft Tool isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+    <p class="legal">OFI Draft Tool no está respaldada por Riot Games y no refleja las opiniones de Riot Games ni de nadie que participe oficialmente en la producción o gestión de las propiedades de Riot Games. Riot Games y todas sus propiedades asociadas son marcas comerciales o marcas registradas de Riot Games, Inc.</p>
+    <p class="legal">Letra Archivo, con licencia <a href="/assets/fuentes/OFL.txt">SIL Open Font License</a>.</p>
+  </div>
+</footer>
+
+</body>
+</html>

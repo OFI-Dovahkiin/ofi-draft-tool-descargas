@@ -1,0 +1,3 @@
+# ofidraft.com es la web del equipo OFI: sus páginas llevan noindex.
+User-agent: *
+Allow: /

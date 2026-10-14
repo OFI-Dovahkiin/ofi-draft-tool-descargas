@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Novedades · OFI Draft Tool</title>
+<meta name="description" content="Qué ha cambiado en cada versión de OFI Draft Tool.">
+<link rel="icon" href="/assets/icono.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/estilo.css">
+<link rel="canonical" href="https://ofidraft.com/novedades/">
+<script src="/assets/web.js" defer></script>
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+
+<header class="cabecera">
+  <div class="envoltura">
+    <a class="marca" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="3" width="13" height="26" rx="3" fill="#2c5bd6"/><rect x="18" y="3" width="13" height="26" rx="3" fill="#bf363c"/><rect x="4" y="7" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="4" y="13" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="4" y="19" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="7" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="13" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="19" width="7" height="3" rx="1" fill="#fff" opacity=".85"/></svg>
+      OFI Draft Tool
+    </a>
+    <nav class="menu" aria-label="Principal">
+      <a href="/descargar/">Descargar</a>
+      <a href="/funciones/">Qué hace</a>
+      <a href="/novedades/" aria-current="page">Novedades</a>
+      <a href="/estado/">Datos</a>
+      <a href="/equipo/">Zona del equipo</a>
+      <a href="/fallo/">Avisar de un fallo</a>
+      <a href="/en/" lang="en" hreflang="en">English</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+<section class="cabeza">
+  <div class="envoltura">
+    <h1>Novedades</h1>
+    <p class="entrada">Lo que ha cambiado en cada versión, contado para el equipo. No hace falta hacer nada: la app se actualiza sola (cómo y cuándo, en <a href="/descargar/">Descargar</a>).</p>
+    <p class="tira-version" data-version-tira></p>
+  </div>
+</section>
+
+<section class="bloque">
+  <div class="envoltura">
+    <ul class="novedades">
+      <li class="novedad pendiente">
+        <h3>En camino <small>ya hecho, llega con la próxima versión</small></h3>
+        <ul><li>Overlay: arreglado «Oro en objetos» (equipos y tu línea), que contaba mal: tomaba el coste de combinar en vez del precio entero de cada objeto, y una sola unidad por hueco.</li><li>Overlay: al lado, en gris, tu oro sin gastar (el de los demás no lo da Riot, así que no entra en la resta).</li><li>Jugadores: nueva columna «Notas» con las notas que Riot le ha puesto a cada uno en sus últimas partidas con cada campeón (S-, A+, B…): tres a la vista y el resto al pasar el ratón, en cuanto lleguen esos datos.</li><li>Jugadores: arreglada la tabla, que se salía de la pantalla a 1280 px de ancho.</li><li>Se irá completando el historial de partidas de los que entraron más tarde al equipo, que se quedaba corto.</li></ul>
+      </li>
+      <li class="novedad" id="v2.0.25">
+        <h3>2.0.25 <small>8 de octubre de 2026</small></h3>
+        <ul><li>La misma app que la 2.0.24, publicada por la salida semanal.</li></ul>
+      </li>
+      <li class="novedad" id="v2.0.24">
+        <h3>2.0.24 <small>8 de octubre de 2026</small></h3>
+        <ul><li>Champ select: la app acierta más el puesto de cada rival y, si se equivoca, lo puedes corregir a mano con un desplegable en el tablero y en Análisis de draft (se olvida al cerrar el champ select).</li><li>Los cruces cuyo dato viene de la versión anterior de la app y no de nuestras partidas lo dicen: «(V1)» en la ficha y «de la V1» en Análisis de draft y en el tablero.</li><li>Nueva Alerta Pajareada, la broma del equipo: cuando los de siempre sobrevuelan a su campeón de siempre en champ select, salta un aviso a pantalla completa con sonido, que no estorba al cliente y se va solo en unos segundos. Se puede probar desde Configuración.</li><li>Datos de partidas y del equipo actualizados.</li></ul>
+      </li>
+      <li class="novedad" id="v2.0.23">
+        <h3>2.0.23 <small>5 de octubre de 2026</small></h3>
+        <ul><li>Clash: si habéis scouteado al rival ese mismo día, los bans van contra lo que juega cada uno de ellos (pocket picks incluidos), y la pantalla dice a qué hora se hizo el scouting.</li><li>Bans: los de cada plan de Equipo se calculan igual que en champ select (sin tocar a vuestros cinco y contra el rival scouteado si lo hay), y la segunda ronda tiene en cuenta todos los puestos que le quedan por elegir al rival.</li><li>Qué coger: la teoría pesa menos en el orden, así que salen muchas menos primeras opciones flojas.</li><li>Los winrates de cada campeón salen ya de los parches recientes, como la tier list; si en un puesto no hay partidas recientes, la ficha lo dice.</li><li>La dificultad de cada línea (favorable, a skill, chungo…) se calcula con el winrate de ahora y solo con partidas suficientes; antes era la heredada de la versión anterior.</li><li>Segunda revisión de kits: corregidos datos de muchos campeones (la R de Wukong, el tipo de daño de Corki, Kayle cuerpo a cuerpo en línea…) y reescritas muchas descripciones; la ficha da ya el arquetipo en castellano («Mago de batalla», «Tanque de engage», «Diver»…).</li><li>El scouting de un rival caduca a los 7 días y cada uno empieza de cero; si falla, la app lo dice.</li></ul>
+      </li>
+      <li class="novedad" id="v2.0.22">
+        <h3>2.0.22 <small>4 de octubre de 2026</small></h3>
+        <ul><li>Qué banear, rehecho: cada ban se elige por lo probable que es que el rival coja ese campeón (mirando también lo que os han cogido vuestros rivales) y por lo que os quitaría frente a la pool de cada uno; el porqué lleva sus números.</li><li>En SoloQ y Flex, los bans protegen lo que cada compañero ha declarado que va a jugar (antes protegían su pool de siempre).</li><li>Qué coger: fuera de la tier list del puesto solo propone campeones que ese jugador ha jugado en ese puesto.</li><li>Kits revisados habilidad a habilidad con la wiki: el motor entiende mejor dashes, silencios, escudos, muros y marcas, y se corrigen frases que decían de más.</li></ul>
+      </li>
+      <li class="novedad" id="v2.0.21">
+        <h3>2.0.21 <small>3 de octubre de 2026</small></h3>
+        <ul><li>Overlay: enseña solo el plan del draft de esta partida, su titular nombra al campeón clave, «TE FALTA» ya no pide objetos imposibles y baja un poco para no tapar los FPS.</li><li>Tablero y Análisis de draft: todos los cruces de línea tienen guía; si no hay una escrita, se deduce de los dos kits (qué respetar, cuándo entrar, a partir del 6, la oleada) y se avisa.</li><li>Bans: si un compañero ya ha fijado, se protege lo que ha cogido y no sus otros campeones; las clasificatorias por equipos y las personalizadas con draft de torneo se tratan como Clash, y «Qué banear» deja de salir cuando ya habéis baneado.</li><li>Armería: «Primeras compras» trae piezas de tu primer objeto, lo que pide el rival de línea va aparte en «Situacional» y el orden de habilidades es siempre uno que el juego deja subir.</li><li>Importar al cliente ya no borra tus sets de objetos si no los puede leer, y si no queda hueco para otra página de runas te dice qué hacer.</li><li>El oro al 15 de cada línea dice de dónde sale la cifra.</li><li>Textos del análisis más limpios: frases repetidas juntadas en una y corregidos errores de kit (la E de Lee Sin no quita visión); el parche que se muestra es el último.</li><li>Arreglados: el retrato de Fiddlesticks en negro, Esc que no cerraba la ficha, «Lo que dicen» que contaba los remakes, planes de Equipo de otra alineación, la tabla de Partidas que no cabía, letra demasiado pequeña y runas cortadas.</li></ul>
+      </li>
+      <li class="novedad" id="v2.0.20">
+        <h3>2.0.20 <small>1 de octubre de 2026</small></h3>
+        <ul><li>La misma app que la 2.0.19, publicada por la salida semanal.</li></ul>
+      </li>
+      <li class="novedad" id="v2.0.19">
+        <h3>2.0.19 <small>1 de octubre de 2026</small></h3>
+        <ul><li>Nueva pestaña Jugadores: la página de cada uno con su estilo de juego, sus mejores campeones, en qué destaca y dónde sufre, cómo le va con cada tipo de campeón y todas sus maestrías en una tabla ordenable con KDA, CS y daño por minuto.</li><li>Equipo, rehecha: el mapa con el rango y la pool de cada uno en su puesto, y un plan por cada tipo de partida (Teamfight 5v5, Pick & Catch, Splitpush…) con el desglose de su nota.</li><li>Equipo: el mejor plan ya no se queda fuera, su nota mira el motor completo contra lo que más se juega (o contra el rival scouteado) y las partidas de cada uno en su puesto, y cada ban propuesto dice qué os hace ese campeón.</li><li>Historial: filtros por cola, resultado, puesto y campeón, y en cada partida objetos, runas, hechizos, daño, oro, participación, guardianes, CS a los 10 y el rival de línea.</li><li>Tier list: hecha con los parches más recientes, dice de qué parches son los datos y trae columna «Del equipo», vista por tiers y buscador.</li><li>Tablero más limpio: la pega de cada pick, escrita; nada de estilo ni plan hasta que hay tres picks por lado; y el detalle de cada línea con lo clave primero.</li><li>Pulsar un campeón en cualquier pestaña abre su ficha y pulsar un jugador abre su página; atajos de teclado del 1 al 8.</li><li>Limpieza: fuera lo que sobraba o salía vacío, todo cabe a 1280 px y en la armería el primer camino de build es el más jugado.</li></ul>
+      </li>
+      <li class="novedad" id="v2.0.18">
+        <h3>2.0.18 <small>28 de septiembre de 2026</small></h3>
+        <ul><li>Armería: hasta tres caminos de build por campeón y puesto (on-hit, letalidad, crítico, AP, tanque…), con una ★ en el recomendado contra el equipo rival y su porqué.</li><li>«Importar al cliente» manda el camino elegido y deja los demás en la tienda del juego como «Otro camino».</li><li>Runas: se importa la página de la runa clave más jugada de cada campeón en su puesto, y la armería y la ficha dicen en cuántas partidas se lleva cada runa clave.</li><li>Arreglado: páginas de runas que el cliente rechazaba o que repetían runa.</li><li>Las estadísticas salen solo de las partidas más recientes (antes se mezclaban parches viejos).</li></ul>
+      </li>
+      <li class="novedad" id="v2.0.17">
+        <h3>2.0.17 <small>27 de septiembre de 2026</small></h3>
+        <ul><li>La app se actualiza sola: al abrirla instala la versión nueva si la hay (si estás en champ select o en partida, solo avisa y espera a que pulses).</li><li>Esta hubo que instalarla una vez a mano encima de la anterior; desde aquí, las versiones llegan solas.</li><li>La app encuentra el LoL aunque no esté instalado en la carpeta de siempre.</li></ul>
+      </li>
+    </ul>
+    <p class="texto-suave nota-final">Las versiones anteriores a la 2.0.17 no tenían actualización automática. ¿Echas algo en falta o algo no va? <a href="/fallo/">Avísalo</a>.</p>
+  </div>
+</section>
+</main>
+
+<footer class="pie">
+  <div class="envoltura">
+    <div class="grupos">
+      <nav aria-label="La app">
+        <h2>La app</h2>
+        <ul>
+          <li><a href="/descargar/">Descargar</a></li>
+          <li><a href="/funciones/">Qué hace</a></li>
+          <li><a href="/novedades/">Novedades</a></li>
+          <li><a href="/estado/">Estado de los datos</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="El equipo">
+        <h2>El equipo</h2>
+        <ul>
+          <li><a href="/equipo/">Zona del equipo</a></li>
+          <li><a href="/fallo/">Avisar de un fallo</a></li>
+          <li><a href="mailto:contact@ofidraft.com">contact@ofidraft.com</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Legal">
+        <h2>Legal</h2>
+        <ul>
+          <li><a href="/privacidad/">Política de privacidad</a></li>
+          <li><a href="/terminos/">Términos de uso</a></li>
+          <li><a href="/en/" lang="en" hreflang="en">English</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="legal" lang="en">OFI Draft Tool isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+    <p class="legal">OFI Draft Tool no está respaldada por Riot Games y no refleja las opiniones de Riot Games ni de nadie que participe oficialmente en la producción o gestión de las propiedades de Riot Games. Riot Games y todas sus propiedades asociadas son marcas comerciales o marcas registradas de Riot Games, Inc.</p>
+    <p class="legal">Letra Archivo, con licencia <a href="/assets/fuentes/OFL.txt">SIL Open Font License</a>.</p>
+  </div>
+</footer>
+
+</body>
+</html>
