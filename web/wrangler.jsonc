@@ -1,7 +1,17 @@
 // La web de OFI Draft Tool (ofidraft.com): páginas estáticas en `public/` y
-// un Worker pequeño en `src/index.js` para lo que necesita algo más.
+// un Worker pequeño en `src/` para lo que necesita algo más.
 // Se publica sola con cada cambio en la carpeta `web/` del repositorio de
 // descargas (Workers Builds, en Cloudflare).
+//
+// **Lo que NO está aquí, porque este repositorio es público**, y se pone en
+// Cloudflare como secreto (Workers & Pages → ofi-draft-tool-web → Settings →
+// Variables and Secrets → Add → Type: Secret). Los secretos no se borran al
+// publicar:
+//   DESTINO          el correo al que llegan los avisos del formulario.
+//   EQUIPO_DOMINIO   el dominio de Cloudflare Access (xxx.cloudflareaccess.com).
+//   EQUIPO_AUD       la «Application Audience (AUD) Tag» de la zona en Access.
+//   EQUIPO_ADMINS    los correos de los capitanes, separados por comas.
+//   RIOT_KEY         la clave de la API de Riot, para el scouting y el repaso.
 {
   "name": "ofi-draft-tool-web",
   "main": "src/index.js",
@@ -20,12 +30,21 @@
     "run_worker_first": ["/api/*", "/equipo", "/equipo/*", "/datos/*"]
   },
   // El formulario de «Avisar de un fallo» manda un correo. A quién: el
-  // secreto DESTINO, que se pone en Cloudflare y no aquí (este repositorio
-  // es público).
+  // secreto DESTINO.
   "send_email": [{ "name": "CORREO" }],
   "vars": {
-    "REMITENTE": "web@ofidraft.com"
+    "REMITENTE": "web@ofidraft.com",
+    // Dónde juega el equipo, para la API de Riot (EUW).
+    "RIOT_PLATAFORMA": "euw1",
+    "RIOT_REGION": "europe"
   },
+  // El almacén de la zona del equipo: un Durable Object con SQLite dentro.
+  // Está en el plan gratuito y lo crea el propio despliegue (la migración de
+  // abajo): no hay que crear nada a mano en Cloudflare.
+  "durable_objects": {
+    "bindings": [{ "name": "ZONA", "class_name": "Zona" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Zona"] }],
   // Opcional: un limitador de Cloudflare para el formulario, además del que
   // lleva el Worker con la caché. Si se quiere, se quita el `//` de la línea
   // de abajo (si el plan no lo admite, el despliegue falla y lo dice; entonces

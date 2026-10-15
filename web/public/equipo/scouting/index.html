@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scouting del rival · Equipo OFI</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1a2230">
+<link rel="icon" href="/assets/icono.svg" type="image/svg+xml">
+<link rel="manifest" href="/assets/app/zona.webmanifest">
+<link rel="apple-touch-icon" href="/assets/app/icono-180.png">
+<link rel="stylesheet" href="/assets/estilo.css">
+<script src="/assets/equipo.js" defer></script>
+</head>
+<body class="zona" data-zona="scouting">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+
+<header class="cabecera">
+  <div class="envoltura">
+    <a class="marca" href="/equipo/">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="3" width="13" height="26" rx="3" fill="#2c5bd6"/><rect x="18" y="3" width="13" height="26" rx="3" fill="#bf363c"/><rect x="4" y="7" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="4" y="13" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="4" y="19" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="7" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="13" width="7" height="3" rx="1" fill="#fff" opacity=".85"/><rect x="21" y="19" width="7" height="3" rx="1" fill="#fff" opacity=".85"/></svg>
+      Equipo OFI
+    </a>
+    <nav class="menu" aria-label="Zona del equipo">
+      <a href="/equipo/">Inicio</a>
+      <a href="/equipo/scouting/" aria-current="page">Scouting</a>
+      <a href="/equipo/plan/">Plan</a>
+      <a href="/equipo/repaso/">Repaso</a>
+      <a href="/equipo/builds/">Builds</a>
+      <a href="/equipo/apuntes/">Apuntes</a>
+      <a href="/equipo/ideas/">Ideas</a>
+    </nav>
+  </div>
+</header>
+
+<div class="envoltura"><div class="aviso-zona" data-aviso role="alert" hidden></div></div>
+
+<main id="contenido">
+<section class="cabeza">
+  <div class="envoltura">
+    <h1 data-titulo>Scouting del rival</h1>
+    <p class="entrada">Escribe el Riot ID de cualquiera del equipo rival: la API de Clash de Riot dice quiénes son los cinco y en qué puesto se han apuntado.</p>
+  </div>
+</section>
+<noscript><div class="envoltura"><p class="aviso ambar">La zona del equipo necesita JavaScript.</p></div></noscript>
+<section class="bloque">
+  <div class="envoltura">
+    <form class="formulario" data-buscar novalidate>
+      <div class="campo">
+        <label for="s-riot">Riot ID de uno del rival</label>
+        <p class="ayuda">Como sale en el cuadro del Clash: Nombre#TAG.</p>
+        <input type="text" id="s-riot" name="riotId" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="40" placeholder="Nombre#TAG" required>
+      </div>
+      <p><button class="boton principal" type="submit">Buscar su equipo</button>
+         <button class="boton" type="button" data-a-mano>No está en Clash: escribirlos a mano</button></p>
+    </form>
+    <form class="formulario" data-buscar-cinco hidden novalidate>
+      <p>Si el rival no está apuntado a un Clash ahora mismo, escribe sus Riot ID (de uno a cinco):</p>
+      <div class="campo"><label for="s-r1">Riot ID 1</label><input type="text" id="s-r1" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="40" placeholder="Nombre#TAG"></div>
+      <div class="campo"><label for="s-r2">Riot ID 2</label><input type="text" id="s-r2" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="40" placeholder="Nombre#TAG"></div>
+      <div class="campo"><label for="s-r3">Riot ID 3</label><input type="text" id="s-r3" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="40" placeholder="Nombre#TAG"></div>
+      <div class="campo"><label for="s-r4">Riot ID 4</label><input type="text" id="s-r4" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="40" placeholder="Nombre#TAG"></div>
+      <div class="campo"><label for="s-r5">Riot ID 5</label><input type="text" id="s-r5" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="40" placeholder="Nombre#TAG"></div>
+      <p><button class="boton principal" type="submit">Buscarlos</button></p>
+    </form>
+    <p class="estado-carga" data-progreso aria-live="polite" hidden></p>
+  </div>
+</section>
+
+<section class="bloque" data-resultado hidden></section>
+
+<section class="bloque" data-recientes-bloque hidden>
+  <div class="envoltura">
+    <h2>Mirados estos días</h2>
+    <ul class="lista-simple" data-recientes></ul>
+  </div>
+</section>
+
+<section class="bloque">
+  <div class="envoltura">
+    <div class="aviso azul">
+      <p><strong>Las reglas del scouting.</strong> Los nombres del rival salen solo aquí, nunca en el champ select. Todo lo del rival se borra solo a los siete días. Cada número va con su muestra («3 de 5 ganadas»), y no se calcula el elo de nadie.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="pie">
+  <div class="envoltura">
+    <ul class="enlaces">
+      <li><a href="/equipo/miembros/">Tu perfil y el equipo</a></li>
+      <li><a href="/">ofidraft.com</a></li>
+      <li><a href="/privacidad/#zona">Qué se guarda</a></li>
+      <li><a href="/cdn-cgi/access/logout" data-salir>Salir</a></li>
+    </ul>
+    <p class="legal" lang="en">OFI Draft Tool isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+    <p class="legal">OFI Draft Tool no está respaldada por Riot Games y no refleja las opiniones de Riot Games ni de nadie que participe oficialmente en la producción o gestión de las propiedades de Riot Games. Riot Games y todas sus propiedades asociadas son marcas comerciales o marcas registradas de Riot Games, Inc.</p>
+    <p class="legal" lang="en">OFI Draft Tool was created under Riot Games' “Legal Jibber Jabber” policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project.</p>
+    <p class="legal">OFI Draft Tool se ha hecho bajo la política «Legal Jibber Jabber» de Riot Games, con recursos que son propiedad de Riot Games. Riot Games no respalda ni patrocina este proyecto.</p>
+    <p class="legal">Nombres e iconos de campeones, objetos, runas y hechizos: Data Dragon, de Riot Games.</p>
+  </div>
+</footer>
+
+</body>
+</html>

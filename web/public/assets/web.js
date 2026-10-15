@@ -71,11 +71,87 @@
     version().then(pintarVersion).catch(function () { /* se queda el texto de serie */ });
   }
 
+  // ---------------------------------------------------------------- la zona del equipo
+  // En /zona/: si la zona aún no está abierta (Access sin configurar), lo dice.
+  var estadoZona = document.querySelector("[data-zona-estado]");
+  if (estadoZona) {
+    fetch("/api/zona", { headers: { accept: "application/json" } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (z) { if (z && z.abierta === false) estadoZona.hidden = false; })
+      .catch(function () { /* sin respuesta, no se dice nada */ });
+  }
+
+  // ---------------------------------------------------------------- buscador de campeones
+  // En /guias/cruces/: filtra las listas por nombre mientras se escribe. Sin
+  // JavaScript, se ven todas.
+  var filtro = document.querySelector("[data-filtro]");
+  if (filtro) {
+    var normal = function (s) {
+      return String(s || "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+        .replace(/[&]/g, " y ").replace(/['.]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    };
+    filtro.addEventListener("input", function () {
+      var q = normal(filtro.value);
+      var listas = document.querySelectorAll("[data-filtrable]");
+      for (var i = 0; i < listas.length; i++) {
+        var items = listas[i].querySelectorAll("li");
+        var visibles = 0;
+        for (var j = 0; j < items.length; j++) {
+          var ok = !q || items[j].getAttribute("data-nombre").indexOf(q) >= 0;
+          items[j].hidden = !ok;
+          if (ok) visibles++;
+        }
+        listas[i].hidden = visibles === 0;
+        var antes = listas[i].previousElementSibling;
+        while (antes && antes.tagName !== "H2") antes = antes.previousElementSibling;
+        if (antes) antes.hidden = visibles === 0;
+        var nota = listas[i].previousElementSibling;
+        if (nota && nota.tagName === "P") nota.hidden = visibles === 0;
+      }
+    });
+  }
+
+  // Un enlace a un cruce concreto (/guias/cruces/x/#y-top) lo abre.
+  function abrirDesplegable() {
+    if (!location.hash) return;
+    var el = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (el && el.tagName === "DETAILS") {
+      el.open = true;
+      el.scrollIntoView({ block: "start" });
+    }
+  }
+  if (document.querySelector("details.cruce")) {
+    abrirDesplegable();
+    window.addEventListener("hashchange", abrirDesplegable);
+  }
+
   // ---------------------------------------------------------------- fallo
   var form = document.querySelector("form[data-fallo]");
   if (!form) return;
   var abierta = Date.now();
   var mensaje = form.querySelector("[data-mensaje]");
+
+  // **Qué campos tocan según lo que se cuenta.** Sin JavaScript se ven todos,
+  // y el servidor se queda con los que valen para ese tipo.
+  function tipo() {
+    var marcada = form.querySelector('input[name="tipo"]:checked');
+    return marcada ? marcada.value : "fallo";
+  }
+  function ajustarCampos() {
+    var t = tipo();
+    var solos = form.querySelectorAll("[data-solo]");
+    for (var i = 0; i < solos.length; i++) {
+      solos[i].hidden = solos[i].getAttribute("data-solo").split(" ").indexOf(t) < 0;
+    }
+    var ayudas = { fallo: "[data-ayuda-fallo]", idea: "[data-ayuda-idea]", motor: "[data-ayuda-motor]" };
+    for (var k in ayudas) {
+      var a = form.querySelector(ayudas[k]);
+      if (a) a.hidden = k !== t;
+    }
+  }
+  var radios = form.querySelectorAll('input[name="tipo"]');
+  for (var r = 0; r < radios.length; r++) radios[r].addEventListener("change", ajustarCampos);
+  ajustarCampos();
   var boton = form.querySelector('button[type="submit"]');
   // Lo que acepta el servidor por adjunto. Las imágenes se reducen antes de
   // mandarlas y de un registro largo va el final, así que esto casi nunca
@@ -167,9 +243,16 @@
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
     var que = form.que.value.trim();
+    var t = tipo();
     if (que.length < 10) {
-      avisar("Cuenta un poco más qué ha pasado (al menos una frase).", false);
+      avisar(t === "idea" ? "Cuenta un poco más la idea (al menos una frase)." : "Cuenta un poco más qué ha pasado (al menos una frase).", false);
       form.que.focus();
+      return;
+    }
+    var draft = form.draft ? form.draft.value.trim() : "";
+    if (t === "motor" && draft.length < 20) {
+      avisar("Pega el draft: la «Hoja de Clash» o los diez campeones.", false);
+      form.draft.focus();
       return;
     }
     var ficheros = Array.prototype.slice.call(form.adjuntos.files || []);
@@ -186,9 +269,11 @@
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
+          tipo: t,
           que: que,
-          donde: form.donde.value,
-          esperaba: form.esperaba.value.trim(),
+          draft: t === "motor" ? draft : "",
+          donde: t === "motor" ? "Análisis de draft" : form.donde.value,
+          esperaba: t === "fallo" ? form.esperaba.value.trim() : "",
           quien: form.quien.value.trim(),
           version: form.version.value.trim(),
           web: form.web.value,
@@ -202,6 +287,7 @@
     }).then(function (x) {
       if (x.r.ok) {
         form.reset();
+        ajustarCampos();
         avisar("Recibido. Le ha llegado a Álvaro. Gracias.", true);
       } else {
         avisar((x.j && x.j.mensaje) || "No se ha podido enviar. Escribe a contact@ofidraft.com.", false);

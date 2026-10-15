@@ -21,10 +21,11 @@
     <nav class="menu" aria-label="Principal">
       <a href="/descargar/">Descargar</a>
       <a href="/funciones/">Qué hace</a>
+      <a href="/guias/">Guías</a>
       <a href="/novedades/">Novedades</a>
       <a href="/estado/">Datos</a>
-      <a href="/equipo/">Zona del equipo</a>
-      <a href="/fallo/">Avisar de un fallo</a>
+      <a href="/zona/">Zona del equipo</a>
+      <a href="/fallo/">Fallos e ideas</a>
       <a href="/en/" lang="en" hreflang="en">English</a>
     </nav>
   </div>
@@ -46,8 +47,8 @@
     </ul>
 
     <h2>Esta web</h2>
-    <p>La web son unas páginas y un pequeño servidor, los dos alojados en Cloudflare. No tiene analítica, no carga scripts ni fuentes de terceros y no pone cookies; la única será la de inicio de sesión de la zona del equipo (<code>CF_Authorization</code>, de Cloudflare Access), cuando se abra, y solo a quien entre en ella. Cloudflare trata datos técnicos como tu dirección IP para servir las páginas y protegerlas de abusos; consulta la <a href="https://www.cloudflare.com/privacypolicy/">política de privacidad de Cloudflare</a>. Si algo falla en el servidor, Cloudflare guarda unos días los mensajes de error, para poder arreglarlo; en ellos no escribimos lo que envías ni tu dirección IP.</p>
-    <p>El formulario para avisar de un fallo le manda al desarrollador un correo con lo que escribes, lo que adjuntes, el navegador que usas (su «user agent») y el país en el que Cloudflare sitúa tu conexión. No se guarda en la web. Para frenar envíos en masa, el servidor recuerda durante 10 minutos cuántos avisos han llegado desde tu conexión, con un resumen (hash) de tu dirección IP y no con la dirección. El correo que llega a contact@ofidraft.com lo reenvía Cloudflare al buzón del desarrollador.</p>
+    <p>La web son unas páginas y un pequeño servidor, los dos alojados en Cloudflare. No tiene analítica, no carga scripts ni fuentes de terceros y no pone cookies; las únicas son las de inicio de sesión de la zona del equipo (<code>CF_Authorization</code> y <code>CF_AppSession</code>, de Cloudflare Access), y solo a quien entra en ella. Cloudflare trata datos técnicos como tu dirección IP para servir las páginas y protegerlas de abusos; consulta la <a href="https://www.cloudflare.com/privacypolicy/">política de privacidad de Cloudflare</a>. Si algo falla en el servidor, Cloudflare guarda unos días los mensajes de error, para poder arreglarlo; en ellos no escribimos lo que envías ni tu dirección IP.</p>
+    <p>El formulario de fallos, ideas y drafts mal leídos le manda al desarrollador un correo con lo que escribes (y el draft, si lo pegas), lo que adjuntes, el navegador que usas (su «user agent») y el país en el que Cloudflare sitúa tu conexión. No se guarda en la web. Para frenar envíos en masa, el servidor recuerda durante 10 minutos cuántos avisos han llegado desde tu conexión, con un resumen (hash) de tu dirección IP y no con la dirección. El correo que llega a contact@ofidraft.com lo reenvía Cloudflare al buzón del desarrollador.</p>
 
     <h2>La app en tu PC</h2>
     <p>La app se conecta a:</p>
@@ -69,12 +70,26 @@
     <ul>
       <li><strong>Partidas clasificatorias.</strong> Un proceso programado en nuestro servidor de compilación descarga partidas públicas de Solo/Dúo del servidor EUW con la API oficial de Riot Games y las agrega por campeón y rol. Las partidas descargadas se quedan en nuestro entorno privado de compilación mientras hacen falta para las estadísticas. En la app solo se publican agregados, sin datos de ningún jugador.</li>
       <li><strong>Perfiles del equipo.</strong> De los jugadores que están en la lista del equipo OFI, y solo de ellos, un proceso semanal guarda su Riot ID, su PUUID (el identificador de jugador de Riot), su rango, su maestría de campeones y todas sus partidas de Normal Draft, Solo/Dúo, Flexible y Clash desde septiembre de 2024, que la app enseña en Jugadores, Equipo e Historial. La app lleva además un resumen de la carrera de cada uno que su primera versión sacó de op.gg, y que estamos quitando. Estos perfiles van dentro de la app, y la app se puede descargar desde esta web. Antes de una versión pública, los datos de cada equipo solo le llegarán a ese equipo. Cualquier jugador puede pedir que se le quite escribiendo a <a href="mailto:contact@ofidraft.com">contact@ofidraft.com</a>: desde la siguiente versión semanal ya no va en la app, y retiramos de las descargas las versiones anteriores que lo llevaban. Las copias ya instaladas lo pierden al actualizarse.</li>
-      <li><strong>Herramientas del capitán.</strong> Dos herramientas, el scouting de Clash y traer a un suplente, funcionan en el PC del capitán del equipo con una clave de la API de Riot puesta en ese PC. De los Riot ID que escribe el capitán leen el rango, la maestría de campeones y hasta 20 partidas públicas de cada una de cuatro colas. El scouting sirve para preparar ese partido, no se publica nunca y se borra a los 7 días. Traer a un suplente, además, lo apunta en la lista del equipo: desde la siguiente actualización semanal sus datos se tratan como los de un jugador más (arriba), hasta que se le quita de esa lista. «Quitarlos» lo saca de la app en ese PC, pero lo bajado se queda en la carpeta de datos de ese PC hasta que se borra.</li>
+      <li><strong>El scouting de Clash en la zona del equipo.</strong> La zona del equipo de esta web hace el mismo scouting de Clash, con la clave de la API de Riot del desarrollador guardada en el servidor: mira <a href="#zona">La zona del equipo</a>.</li>
+      <li><strong>Herramientas del capitán.</strong> Dos herramientas, el scouting de Clash y traer a un suplente, funcionan en el PC del capitán del equipo con una clave de la API de Riot puesta en ese PC. De los Riot ID que escribe el capitán leen el rango, la maestría de campeones y hasta 20 partidas públicas de cada una de cuatro colas. El scouting sirve para preparar ese partido, no se publica nunca y se borra a los 7 días. Lo de un suplente se queda solo en ese PC, para ese Clash, y no lo apunta en la lista del equipo; «Quitarlos» vacía todo lo bajado de él. Alguien entra en la lista del equipo, y desde la siguiente actualización semanal sus datos se tratan como los de un jugador más (arriba), solo si el capitán apunta su Riot ID en ella a propósito.</li>
     </ul>
     <p>Usamos estos datos porque hacen falta para lo que hace la app: enseñar estadísticas de partidas públicas y ayudar a un equipo a preparar sus partidos. No los vendemos ni los compartimos, y no los usamos para publicidad.</p>
 
+    <h2 id="zona">La zona del equipo</h2>
+    <p>La zona del equipo (ofidraft.com/equipo) es solo para los jugadores del equipo OFI. Se entra con Cloudflare Access: escribes tu correo y te llega un código. Cloudflare guarda un registro de cada entrada (el correo, la fecha, la dirección IP y el país) para proteger la zona; consulta su política de privacidad, enlazada arriba.</p>
+    <p>Lo que guarda la zona, en Cloudflare:</p>
+    <ul>
+      <li><strong>Tu perfil</strong>: tu correo (para saber que eres tú; solo lo ven los capitanes), el nick, el Riot ID y el puesto que pongas, y cuándo entraste por última vez. El equipo ve tu nick, tu Riot ID y tu puesto. El Riot ID lo escribe cada uno: la zona no comprueba que sea suyo.</li>
+      <li><strong>Lo que escribes</strong>: ideas, drafts, builds, apuntes de matchup, planes del Clash, repasos y comentarios, con tu nick y la fecha, y tus votos. Lo ve el equipo. Se queda hasta que lo borras tú o un capitán. Lo que un capitán exporta para la app (las builds aceptadas, los apuntes que no se han retirado y los drafts mal leídos) no lleva ni tu nick ni tu correo.</li>
+      <li><strong>El scouting del rival</strong>: de los Riot ID de rivales que se buscan, lo que da la API de Riot: su equipo de Clash y su puesto, su rango, su maestría y, de sus últimas partidas (hasta 10, de Solo/Dúo y de Clash), el campeón, el puesto, el resultado y el KDA. Sirve para preparar ese Clash, no sale de la zona y se borra solo a los 7 días.</li>
+      <li><strong>El repaso</strong>: si traes las partidas de Clash de un día, de cada una se guardan los diez campeones con su puesto, el lado, el resultado y la duración, sin nombres. Un repaso puede llevar el enlace a un vídeo.</li>
+      <li><strong>Lo que lleváis de verdad</strong>: de quien ha puesto su Riot ID en el perfil, cuando alguien lo pide, de sus últimas partidas (hasta 12, de Solo/Dúo, Flexible y Clash): el campeón, el puesto, el resultado, las runas, los hechizos y los objetos del final; y, para encontrarlas, su PUUID (el identificador de jugador de Riot) y la lista de esas partidas. Se guarda 30 días, y se borra antes si cambia o quita su Riot ID, o si se le borra de la zona.</li>
+    </ul>
+    <p>Las páginas de la zona cargan los nombres y los iconos de campeones, objetos, runas y hechizos de Data Dragon, el servidor de Riot (Riot ve tu dirección IP). Si instalas la zona (en el móvil o en el ordenador), ese navegador guarda una copia de sus páginas, de tu perfil y de los planes del Clash, para abrirlos sin conexión, y la usa también cuando abres la zona en una pestaña normal de ese navegador; «Salir» la borra. Si no la instalas, no se guarda nada.</p>
+    <p>Para que se borre lo tuyo (tu perfil, lo que has escrito y lo bajado de tus partidas), escribe a <a href="mailto:contact@ofidraft.com">contact@ofidraft.com</a>.</p>
+
     <h2>Quién más trata datos</h2>
-    <p>GitHub mueve nuestro servidor de compilación y aloja las descargas, Cloudflare aloja esta web y reenvía su correo, y Google sirve los tipos de letra de la app. Las tres tienen sede en Estados Unidos y tratan los datos según sus propias políticas de privacidad, enlazadas arriba, que explican las garantías que aplican a las transferencias desde la Unión Europea.</p>
+    <p>GitHub mueve nuestro servidor de compilación y aloja las descargas, Cloudflare aloja esta web y la zona del equipo y reenvía su correo, y Google sirve los tipos de letra de la app. Las tres tienen sede en Estados Unidos y tratan los datos según sus propias políticas de privacidad, enlazadas arriba, que explican las garantías que aplican a las transferencias desde la Unión Europea.</p>
 
     <h2>Tus derechos</h2>
     <p>Puedes preguntar qué datos tenemos sobre ti, pedir que se corrijan o se borren, u oponerte a que se usen, escribiendo a <a href="mailto:contact@ofidraft.com">contact@ofidraft.com</a>. Contestamos en menos de un mes. Si crees que no hemos tratado bien tus datos, puedes reclamar ante la <a href="https://www.aepd.es/">Agencia Española de Protección de Datos</a>.</p>
@@ -97,6 +112,7 @@
         <ul>
           <li><a href="/descargar/">Descargar</a></li>
           <li><a href="/funciones/">Qué hace</a></li>
+          <li><a href="/guias/">Guías</a></li>
           <li><a href="/novedades/">Novedades</a></li>
           <li><a href="/estado/">Estado de los datos</a></li>
         </ul>
@@ -104,8 +120,8 @@
       <nav aria-label="El equipo">
         <h2>El equipo</h2>
         <ul>
-          <li><a href="/equipo/">Zona del equipo</a></li>
-          <li><a href="/fallo/">Avisar de un fallo</a></li>
+          <li><a href="/zona/">Zona del equipo</a></li>
+          <li><a href="/fallo/">Fallos e ideas</a></li>
           <li><a href="mailto:contact@ofidraft.com">contact@ofidraft.com</a></li>
         </ul>
       </nav>
@@ -120,6 +136,8 @@
     </div>
     <p class="legal" lang="en">OFI Draft Tool isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
     <p class="legal">OFI Draft Tool no está respaldada por Riot Games y no refleja las opiniones de Riot Games ni de nadie que participe oficialmente en la producción o gestión de las propiedades de Riot Games. Riot Games y todas sus propiedades asociadas son marcas comerciales o marcas registradas de Riot Games, Inc.</p>
+    <p class="legal" lang="en">OFI Draft Tool was created under Riot Games' “Legal Jibber Jabber” policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project.</p>
+    <p class="legal">OFI Draft Tool se ha hecho bajo la política «Legal Jibber Jabber» de Riot Games, con recursos que son propiedad de Riot Games. Riot Games no respalda ni patrocina este proyecto.</p>
     <p class="legal">Letra Archivo, con licencia <a href="/assets/fuentes/OFL.txt">SIL Open Font License</a>.</p>
   </div>
 </footer>
