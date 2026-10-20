@@ -17,7 +17,7 @@
  */
 import { zona } from "./almacen.js";
 import { partidasDe } from "./propias.js";
-import { buscarCinco, buscarEquipo, ClaveRiot, clashDelDia, EsperaRiot, huellaClave, scoutearJugador } from "./riot.js";
+import { buscarCinco, buscarEquipo, ClaveRiot, clashDelDia, EsperaRiot, hojaDe, huellaClave, scoutearJugador } from "./riot.js";
 import { Invalido } from "./tipos.js";
 import { esLocal, json, leerConTope, mismoSitio } from "./util.js";
 
@@ -100,7 +100,7 @@ function sinPase() {
 <title>Solo para el equipo · OFI Draft Tool</title><link rel="stylesheet" href="/assets/estilo.css">
 <main class="documento"><div class="envoltura"><h1>Solo para el equipo</h1>
 <p>Esta parte de la web es solo para el equipo OFI. Entra desde <a href="/equipo/">ofidraft.com/equipo</a> con tu correo: te llega un código para entrar.</p>
-<p>¿Eres del equipo y no te deja? Pídele a Álvaro que añada tu correo. Y si quieres saber qué hay dentro, mira <a href="/zona/">la zona del equipo</a>.</p>
+<p>¿Eres del equipo y no te deja? Pide al equipo oficinista de desarrollo que añada tu correo. Y si quieres saber qué hay dentro, mira <a href="/zona/">la zona del equipo</a>.</p>
 </div></main></html>`,
     { status: 403, headers: h },
   );
@@ -279,7 +279,7 @@ async function apiZona(request, env, yo, url) {
           formato: `ofi-${clave}-equipo`,
           version: 1,
           exportado: new Date().toISOString(),
-          nota: "Los campeones, objetos, runas y hechizos van por su número de Riot (el de Data Dragon).",
+          nota: "Los campeones, items, runas y hechizos van por su número de Riot (el de Data Dragon).",
           [clave]: r.filas,
         };
         return new Response(JSON.stringify(cuerpo, null, 2), {
@@ -299,9 +299,10 @@ async function apiZona(request, env, yo, url) {
       case "POST scouting/guardado":
       case "POST scouting/jugador":
       case "POST riot/clash-del-dia":
+      case "POST riot/hoja":
       case "POST riot/propias": {
         if (!env.RIOT_KEY) {
-          return json({ ok: false, sinClave: true, mensaje: "Falta la clave de Riot en Cloudflare (el secreto RIOT_KEY). Pídeselo a Álvaro." }, 503);
+          return json({ ok: false, sinClave: true, mensaje: "Falta la clave de Riot en Cloudflare (el secreto RIOT_KEY). Pídeselo al equipo oficinista de desarrollo." }, 503);
         }
         const c = { env, z, local: yo.local, fp: await huellaClave(env.RIOT_KEY) };
         if (ruta === "POST scouting/equipo") return json({ ok: true, ...(await buscarEquipo(c, d.riotId)) });
@@ -315,7 +316,8 @@ async function apiZona(request, env, yo, url) {
         }
         if (ruta === "POST scouting/jugador") return json({ ok: true, ...(await scoutearJugador(c, d.puuid)) });
         if (ruta === "POST riot/propias") return json({ ok: true, ...(await partidasDe(c, d.nick)) });
-        return json({ ok: true, ...(await clashDelDia(c, await z.riotIdDe(yo.correo), d.fecha)) });
+        if (ruta === "POST riot/hoja") return json({ ok: true, ...(await hojaDe(c, await z.riotIdDe(yo.correo), d.ref)) });
+        return json({ ok: true, ...(await clashDelDia(c, await z.riotIdDe(yo.correo), d.fecha, d.cola)) });
       }
       default:
         return json({ ok: false, mensaje: "No existe." }, 404);
@@ -326,7 +328,7 @@ async function apiZona(request, env, yo, url) {
       return json({ ok: false, esperaMs: e.ms, mensaje: `Riot nos deja pocas consultas seguidas: seguimos en ${Math.ceil(e.ms / 1000)} s.` }, 429);
     }
     if (e instanceof ClaveRiot) {
-      return json({ ok: false, sinClave: true, mensaje: "La clave de Riot no vale (caducada o mal copiada). Álvaro tiene que poner una nueva en Cloudflare." }, 503);
+      return json({ ok: false, sinClave: true, mensaje: "La clave de Riot no vale (caducada o mal copiada). El equipo oficinista de desarrollo tiene que poner una nueva en Cloudflare." }, 503);
     }
     throw e;
   }

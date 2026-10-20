@@ -17,9 +17,12 @@ export const NOMBRE_PUESTO = { TOP: "Top", JUNGLE: "Jungla", MIDDLE: "Mid", BOTT
 
 // Las mismas opciones de «Dónde» que el formulario público (index.js).
 export const DONDE = [
-  "Tablero de champ select", "Armería (runas, objetos, hechizos)", "Análisis de draft", "Equipo", "Jugadores",
+  "Tablero de champ select", "Armería (runas, items, hechizos)", "Análisis de draft", "Equipo", "Jugadores",
   "Tier list", "Fichas de campeón", "Historial", "En partida (overlay)", "Centro de mando o ajustes",
   "Instalar o actualizar", "La web", "Otra cosa",
+  // La etiqueta de antes del 18-10 (decía «objetos»): se sigue aceptando,
+  // que hay cosas guardadas con ella.
+  "Armería (runas, objetos, hechizos)",
 ];
 
 export class Invalido extends Error {}
@@ -96,7 +99,7 @@ export function riotId(v, nombre = "Riot ID") {
 }
 
 const campeon = (v, n = "Campeón") => entero(v, n, 1, 99999);
-const objetoId = (v, n = "Objeto") => entero(v, n, 1000, 999999);
+const objetoId = (v, n = "Item") => entero(v, n, 1000, 999999);
 const runaId = (v, n = "Runa") => entero(v, n, 8000, 9999);
 const arbol = (v, n = "Rama") => entero(v, n, 8000, 8999);
 // Los fragmentos (las tres filas de abajo de la página de runas). Hoy son
@@ -119,6 +122,12 @@ function runas(v) {
   if (fragmentos.length !== 3) falla("Runas: elige los tres fragmentos.");
   if (new Set([...claves, ...secundarias]).size !== 6) falla("Runas: hay una runa repetida.");
   return { principal, claves, secundaria, secundarias, fragmentos };
+}
+
+/** La referencia de una partida (20 cifras hexadecimales, `riot.js` → `referenciaDe`). */
+function referencia(v, nombre) {
+  if (typeof v !== "string" || !/^[a-f0-9]{20}$/.test(v)) falla(`${nombre}: no se ha entendido.`);
+  return v;
 }
 
 /** Un enlace https (el vídeo de un repaso). */
@@ -214,7 +223,7 @@ export const TIPOS = {
         nota: texto(d.nota, "Nota", 0, 1500),
       };
       if (b.hechizos.length === 2 && b.hechizos[0] === b.hechizos[1]) falla("Hechizos: los dos iguales no puede ser.");
-      if (!b.runas && !b.nucleo.length && !b.inicio.length) falla("La build: pon al menos las runas o los objetos.");
+      if (!b.runas && !b.nucleo.length && !b.inicio.length) falla("La build: pon al menos las runas o los items.");
       return b;
     },
   },
@@ -270,11 +279,16 @@ export const TIPOS = {
     estados: [""],
     datos: (d) => ({
       fecha: fecha(d.fecha, "Día del Clash"),
+      // Clash o Flex (desde el 19-10: el equipo juega mucho más Flex que Clash).
+      cola: d.cola == null || d.cola === "" ? "clash" : uno(d.cola, "Cola", ["clash", "flex"]),
       rival: linea(d.rival, "Rival", 0, 80),
       partidas: lista(d.partidas, "Partidas", 6, (x, i) => {
         const p = objeto(x, `Partida ${i + 1}`);
         const n = `Partida ${i + 1}`;
         return {
+          // La referencia que da «Traer las partidas» (riot.js, `referenciaDe`):
+          // con ella se pide la hoja automática. No es el número de la partida.
+          ref: p.ref == null || p.ref === "" ? "" : referencia(p.ref, `${n}: partida`),
           lado: p.lado ? uno(p.lado, `${n}: lado`, ["azul", "rojo"]) : "",
           gano: p.gano == null ? null : uno(p.gano, `${n}: resultado`, [true, false]),
           duracion: enteroONulo(p.duracion, `${n}: duración`, 0, 10800),

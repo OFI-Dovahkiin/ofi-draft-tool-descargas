@@ -36,9 +36,19 @@
 <section class="cabeza">
   <div class="envoltura">
     <h1>Descargar OFI Draft Tool</h1>
-    <p class="entrada">Un instalador para Windows 10 u 11. No pide permisos de administrador y, una vez instalada, se actualiza sola.</p>
-    <div class="descarga">
-      <a class="boton principal grande" href="/descargar/instalador" data-boton-descarga>Descargar el instalador</a>
+    <p class="entrada">Un instalador para Windows 10 u 11. No pide permisos de administrador y, una vez instalada, se actualiza sola. Para bajarlo hace falta la contraseña del equipo.</p>
+    <div class="aviso rojo aviso-descarga" id="clave-incorrecta" tabindex="-1"><p><strong>Esa no es la contraseña.</strong> Ojo con las mayúsculas. Si no la tienes, pídesela al equipo oficinista de desarrollo.</p></div>
+    <div class="aviso rojo aviso-descarga" id="demasiados-intentos" tabindex="-1"><p><strong>Demasiados intentos seguidos.</strong> Espera diez minutos y vuelve a probar.</p></div>
+    <div class="aviso ambar aviso-descarga" id="descarga-cerrada" tabindex="-1"><p><strong>La descarga está cerrada ahora mismo.</strong> Vuelve a probar en un rato o pregunta al equipo oficinista de desarrollo.</p></div>
+    <div class="aviso ambar aviso-descarga" id="descarga-fallida" tabindex="-1"><p><strong>No ha salido la descarga:</strong> el sitio donde está guardado el instalador no ha contestado. Prueba otra vez en un rato.</p></div>
+    <div class="descarga" id="descarga">
+      <form class="clave-descarga" method="post" action="/descargar/instalador">
+        <div class="campo">
+          <label for="clave-descarga">Contraseña del equipo</label>
+          <input type="password" id="clave-descarga" name="clave" required maxlength="200" autocomplete="current-password" autocapitalize="off" spellcheck="false">
+        </div>
+        <button class="boton principal grande" type="submit" data-boton-descarga>Descargar el instalador</button>
+      </form>
       <p class="detalle" data-version-detalle>La última versión, siempre. Pesa unos 5 MB.</p>
     </div>
   </div>
@@ -48,7 +58,7 @@
   <div class="envoltura">
     <h2>Cómo se instala</h2>
     <ol class="pasos">
-      <li><strong>Descarga el instalador.</strong><span>Con el botón de arriba. Si el navegador pregunta si quieres conservar el archivo, pulsa «Conservar».</span></li>
+      <li><strong>Descarga el instalador.</strong><span>Pon la contraseña del equipo y pulsa el botón de arriba. Si el navegador pregunta si quieres conservar el archivo, pulsa «Conservar».</span></li>
       <li><strong>Ábrelo y pasa el aviso azul de Windows.</strong><span>Windows dirá «Windows protegió su PC» porque el instalador no está firmado con un certificado de pago. Pulsa «Más información» y luego «Ejecutar de todas formas».</span></li>
       <li><strong>Instala y ábrela.</strong><span>No pide permisos de administrador. Sale en el menú Inicio como «OFI Draft Gap Tool».</span></li>
       <li><strong>Abre el cliente de LoL cuando quieras.</strong><span>La app lo encuentra sola, aunque no esté instalado en la carpeta de siempre. Se puede abrir antes o después del cliente.</span></li>
@@ -102,9 +112,9 @@
 <section class="bloque">
   <div class="envoltura">
     <h2>El enlace para pasar por Discord</h2>
-    <p>Lleva siempre a la última versión, así que no hace falta cambiar el mensaje cuando sale una nueva:</p>
-    <p><a href="https://ofidraft.com/descargar/instalador">https://ofidraft.com/descargar/instalador</a></p>
-    <p class="texto-suave">El instalador está en el repositorio público de descargas de GitHub; este enlace lleva directamente a él.</p>
+    <p>Lleva a esta página, que pide la contraseña del equipo, y siempre a la última versión, así que no hace falta cambiar el mensaje cuando sale una nueva:</p>
+    <p><a href="https://ofidraft.com/descargar/">https://ofidraft.com/descargar/</a></p>
+    <p class="texto-suave">La contraseña pásala aparte, solo a quien sea del equipo.</p>
   </div>
 </section>
 

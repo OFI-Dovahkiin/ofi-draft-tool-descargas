@@ -1,8 +1,5 @@
-# El instalador de la última versión, en el repositorio público de descargas.
-# Aquí y no en el Worker: así una descarga no gasta peticiones del plan
-# gratuito. Es el mismo enlace fijo que lleva la app (actualizar::ENLACE_FIJO).
-/descargar/instalador https://github.com/OFI-Dovahkiin/ofi-draft-tool-descargas/releases/latest/download/OFI-Draft-Tool-instalador.exe 302
-/descargar/instalador.exe https://github.com/OFI-Dovahkiin/ofi-draft-tool-descargas/releases/latest/download/OFI-Draft-Tool-instalador.exe 302
+# El instalador ya no se redirige desde aquí (2026-10-15): lo sirve el Worker,
+# con la contraseña del equipo (src/index.js, /descargar/instalador).
 # Las páginas en castellano estaban en /es/ hasta el 2026-10-14: ahora son
 # la portada. Las direcciones viejas siguen llevando a su sitio.
 /es /  301

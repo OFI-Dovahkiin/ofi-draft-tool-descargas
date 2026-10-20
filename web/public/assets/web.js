@@ -288,7 +288,7 @@
       if (x.r.ok) {
         form.reset();
         ajustarCampos();
-        avisar("Recibido. Le ha llegado a Álvaro. Gracias.", true);
+        avisar("Recibido. Le ha llegado al equipo oficinista de desarrollo. Gracias.", true);
       } else {
         avisar((x.j && x.j.mensaje) || "No se ha podido enviar. Escribe a contact@ofidraft.com.", false);
       }

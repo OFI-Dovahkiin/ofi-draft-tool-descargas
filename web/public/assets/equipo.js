@@ -178,6 +178,12 @@
   ];
   const NOMBRE_FRAGMENTO = Object.fromEntries(FRAGMENTOS.flatMap((f) => f.opciones));
 
+  // Los hechizos de invocador, como se dicen: Data Dragon en castellano trae los
+  // nombres del cliente («Destello», «Prender», «Extenuación»…) y en partida nadie
+  // los llama así. Por su número de Riot; los demás, con el de Data Dragon.
+  // Los mismos que la app (`app/src/etiquetas.ts`).
+  const HECHIZOS_COMO_SE_DICEN = { 1: "Cleanse", 3: "Exhaust", 4: "Flash", 6: "Ghost", 7: "Heal", 11: "Smite", 12: "TP", 14: "Ignite", 21: "Barrier" };
+
   let promesaCatalogo = null;
 
   /** Campeones, objetos, runas y hechizos de la última versión de Data Dragon, en castellano. */
@@ -247,7 +253,7 @@
 
     for (const s of Object.values(su.data)) {
       if (!(s.modes || []).includes("CLASSIC")) continue;
-      const x = { key: Number(s.key), nombre: s.name, img: `${DD}/cdn/${v}/img/spell/${s.image.full}` };
+      const x = { key: Number(s.key), nombre: HECHIZOS_COMO_SE_DICEN[Number(s.key)] || s.name, img: `${DD}/cdn/${v}/img/spell/${s.image.full}` };
       cat.hechizos.set(x.key, x);
       cat.listaHechizos.push(x);
     }
@@ -303,7 +309,7 @@
 
   function vistaObjeto(cat, id) {
     const o = cat && cat.objetos.get(id);
-    if (!o) return h("li", { texto: `Objeto ${id}` });
+    if (!o) return h("li", { texto: `Item ${id}` });
     return h("li", {}, icono(o.img, "", "mini"), h("span", { texto: o.nombre }));
   }
 
@@ -402,7 +408,7 @@
 
     const datos = (n) => (tipo === "campeon"
       ? cat && cat.campeones.get(n) && { nombre: cat.campeones.get(n).nombre, img: cat.campeones.get(n).img }
-      : cat && cat.objetos.get(n) && { nombre: cat.objetos.get(n).nombre, img: cat.objetos.get(n).img }) || { nombre: `${tipo === "campeon" ? "Campeón" : "Objeto"} ${n}`, img: null };
+      : cat && cat.objetos.get(n) && { nombre: cat.objetos.get(n).nombre, img: cat.objetos.get(n).img }) || { nombre: `${tipo === "campeon" ? "Campeón" : "Item"} ${n}`, img: null };
 
     const pintar = () => {
       chips.replaceChildren(...elegidos.map((n, i) => {
@@ -933,7 +939,7 @@
   }
 
   const DONDE = [
-    "Tablero de champ select", "Armería (runas, objetos, hechizos)", "Análisis de draft", "Equipo", "Jugadores",
+    "Tablero de champ select", "Armería (runas, items, hechizos)", "Análisis de draft", "Equipo", "Jugadores",
     "Tier list", "Fichas de campeón", "Historial", "En partida (overlay)", "Centro de mando o ajustes",
     "Instalar o actualizar", "La web", "Otra cosa",
   ];
@@ -1092,7 +1098,7 @@
     if (gr.hechizos) art.append(h("div", { clase: "bloque-cosa" }, h("h4", { texto: `Hechizos (${gr.hechizos[1]} de ${gr.n})` }), h("ul", { clase: "iconos" }, gr.hechizos[0].map((k) => vistaHechizo(cat, k)))));
     const objetos = [...(gr.botas ? [gr.botas] : []), ...gr.objetos];
     if (objetos.length) {
-      art.append(h("div", { clase: "bloque-cosa" }, h("h4", { texto: "Objetos (en cuántas partidas los acabó llevando)" }),
+      art.append(h("div", { clase: "bloque-cosa" }, h("h4", { texto: "Items (en cuántas partidas los acabó llevando)" }),
         h("ul", { clase: "iconos" }, objetos.map(([id, veces]) => {
           const li = vistaObjeto(cat, id);
           li.append(h("span", { clase: "texto-suave", texto: `${veces} de ${gr.n}` }));
@@ -1196,7 +1202,7 @@
     const h1 = hechizo(0);
     const h2 = hechizo(1);
     const inicio = campoLista(cat, "Para empezar", { tipo: "objeto", max: 6, valores: d.inicio || [], ayuda: "Lo que compras al salir (y la poción)." });
-    const nucleo = campoLista(cat, "Núcleo, en orden", { tipo: "objeto", max: 6, valores: d.nucleo || [], ayuda: "Los objetos de siempre, en el orden en que se compran." });
+    const nucleo = campoLista(cat, "Núcleo, en orden", { tipo: "objeto", max: 6, valores: d.nucleo || [], ayuda: "Los items de siempre, en el orden en que se compran." });
     const botas = campoLista(cat, "Botas", { tipo: "objeto", max: 1, valores: d.botas ? [d.botas] : [], botas: true });
     const situ = campoLista(cat, "Según la partida", { tipo: "objeto", max: 8, valores: d.situacionales || [], ayuda: "Los que se cambian según contra quién juegues." });
     const orden = (d.habilidades || "").split(">");
@@ -1211,7 +1217,7 @@
       !c && inicial ? h("div", { clase: "aviso azul" }, h("p", { texto: "Sale de vuestras partidas. Revisa el orden del núcleo (de una partida solo se sabe con qué acabó, no en qué orden lo compró) y pon el orden de habilidades." })) : null,
       h("div", { clase: "fila-campos" }, champ.caja, campo("Puesto", rol)),
       campo("Nombre de la build (si quieres)", titulo),
-      h("div", { clase: "campo" }, h("span", { clase: "etiqueta-campo", texto: "Runas" }), h("p", { clase: "ayuda", texto: "Déjalas sin tocar si la build es solo de objetos." }), runas.caja),
+      h("div", { clase: "campo" }, h("span", { clase: "etiqueta-campo", texto: "Runas" }), h("p", { clase: "ayuda", texto: "Déjalas sin tocar si la build es solo de items." }), runas.caja),
       h("div", { clase: "fila-campos" }, campo("Hechizo 1", h1), campo("Hechizo 2", h2)),
       inicio.caja, nucleo.caja, botas.caja, situ.caja,
       h("fieldset", { clase: "opciones" }, h("legend", { texto: "Orden de habilidades (de primera a última en subir al máximo)" }),
@@ -1289,7 +1295,7 @@
           avisoRevision(c),
           h("div", { clase: "fila-campos" }, con.caja, contra.caja),
           campo("Puesto", rol),
-          campo("El apunte", texto, { ayuda: "Lo que harías en ese cruce: niveles, tradeos, objetos, cuándo pelear." }),
+          campo("El apunte", texto, { ayuda: "Lo que harías en ese matchup: niveles, tradeos, items, cuándo pelear." }),
           pie.nodos);
         f.addEventListener("submit", async (e) => {
           e.preventDefault();
@@ -1439,6 +1445,203 @@
     return f;
   }
 
+  // ==================================================================== la hoja automática
+
+  // Lo que pone la hoja (riot.js → hoja.js) en palabras. Es lo que dicen los
+  // datos de Riot de la partida: qué pasó, nunca qué había que hacer.
+  const MIN = (ms) => minutos(Math.floor((ms || 0) / 1000));
+  const conSigno = (n) => (n > 0 ? `+${numero(n)}` : n < 0 ? `−${numero(-n)}` : "±0");
+  const parcheTexto = (v) => {
+    const [a, b] = String(v || "").split(".").map(Number);
+    return a && b != null ? `${a >= 15 ? a + 10 : a}.${b}` : "";
+  };
+  const QUIEN = (nuestro) => (nuestro ? "nosotros" : "ellos");
+
+  /** Una cifra de la línea, con color: verde si vamos por delante, rojo si por detrás. */
+  function cifraLinea(n) {
+    return h("span", { clase: `cifra-hoja ${n > 0 ? "gana" : n < 0 ? "pierde" : ""}`.trim(), texto: conSigno(n) });
+  }
+
+  /** La diferencia de oro minuto a minuto, dibujada: arriba vamos por delante. */
+  function graficoOro(oro) {
+    if (!Array.isArray(oro) || oro.length < 3) return null;
+    const ancho = 320, alto = 90, m = 6;
+    const tope = Math.max(1000, ...oro.map((x) => Math.abs(x)));
+    const x = (i) => m + (i * (ancho - 2 * m)) / (oro.length - 1);
+    const y = (v) => alto / 2 - (v / tope) * (alto / 2 - m);
+    const puntos = oro.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
+    const ns = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(ns, "svg");
+    svg.setAttribute("viewBox", `0 0 ${ancho} ${alto}`);
+    svg.setAttribute("class", "oro-hoja");
+    svg.setAttribute("role", "img");
+    const ultimo = oro[oro.length - 1];
+    const peor = Math.min(...oro), mejor = Math.max(...oro);
+    svg.setAttribute("aria-label", `Diferencia de oro minuto a minuto: como mucho ${conSigno(mejor)}, como poco ${conSigno(peor)}, al final ${conSigno(ultimo)}.`);
+    const linea0 = document.createElementNS(ns, "line");
+    Object.entries({ x1: m, x2: ancho - m, y1: alto / 2, y2: alto / 2, class: "cero" }).forEach(([k, v]) => linea0.setAttribute(k, v));
+    const traza = document.createElementNS(ns, "polyline");
+    traza.setAttribute("points", puntos);
+    traza.setAttribute("class", "traza");
+    svg.append(linea0, traza);
+    return h("figure", { clase: "figura-oro" }, svg,
+      h("figcaption", { clase: "texto-suave", texto: `Diferencia de oro del equipo, minuto a minuto (arriba, por delante). Al final, ${conSigno(ultimo)}.` }));
+  }
+
+  function textoClip(cat, c) {
+    const quien = nombreCampeon(cat, c.quien);
+    const otro = c.otro ? nombreCampeon(cat, c.otro) : "";
+    switch (c.tipo) {
+      case "execute": return `${quien} muere de execute (torre, minions o un monstruo)`;
+      case "dive": return `${quien} se come la torre al morir (${c.dato} % del daño)${otro ? `; la kill, de ${otro}` : ""}`;
+      case "temprana": return `kill a ${quien} antes del 2:00${otro ? `, de ${otro}` : ""}`;
+      case "shutdown": return `shutdown de ${numero(c.dato)} sobre ${quien}${otro ? `, de ${otro}` : ""}`;
+      case "oneshot": return `${quien} muere de una habilidad${c.dato ? ` (la ${c.dato})` : ""} de ${otro}`;
+      case "multikill": return `${{ 3: "triple", 4: "quadra", 5: "penta" }[c.dato] || "multikill"} de ${quien}`;
+      case "ace": return `ace de ${quien}`;
+      case "robo": return `${quien} roba ${c.dato === "larvas" ? "las" : "el"} ${c.dato} (probable: Riot no dice cuál)`;
+      default: return c.tipo;
+    }
+  }
+
+  const RAREZA = {
+    un_digito: "sobrevive con menos de 10 de vida",
+    aguanta_a_cinco: "se come el daño de los cinco y sobrevive",
+    multikill_una_habilidad: "multikill con una sola habilidad",
+    robo_sin_smite: "roba un objetivo sin Smite",
+    en_inferioridad: "kills en inferioridad numérica",
+    pings_desaparecido: "pings de «desaparecido»",
+  };
+
+  /** La hoja entera. `hoja` es lo que devuelve `riot/hoja`; `nivel`, el de
+   *  los títulos de sus apartados (uno más que el de la partida). */
+  function vistaHoja(cat, hoja, nivel = 5) {
+    const campeon = (k) => vistaCampeon(cat, k, { tam: "mini" });
+    const bloque = (titulo, ...cosas) => h("section", { clase: "bloque-hoja" }, h(`h${nivel}`, { clase: "titulo-hoja", texto: titulo }), ...cosas);
+    const partes = [];
+
+    partes.push(h("p", { clase: "texto-suave cabeza-hoja" },
+      `Lado ${hoja.lado} · ${hoja.gano ? "ganada" : "perdida"} · ${minutos(hoja.duracion)}`,
+      hoja.parche ? ` · parche ${parcheTexto(hoja.parche)}` : "",
+      hoja.remake ? " · remake" : ""));
+
+    if (hoja.linea.length) {
+      // En el móvil la tabla se apila (cada fila, una ficha) y cada celda lleva
+      // delante el nombre de su columna (`data-etiqueta`, como en las guías).
+      const cifras = (a, min) => (a
+        ? [["Oro", a.oro], ["XP", a.xp], ["CS", a.cs]].map(([t, n]) => h("td", { "data-etiqueta": `${t} a los ${min}` }, cifraLinea(n)))
+        : [h("td", { colspan: 3, "data-etiqueta": `A los ${min}`, clase: "texto-suave", texto: "la partida no llegó" })]);
+      const filas = hoja.linea.map((l) => h("tr", {},
+        h("td", { texto: NOMBRE_PUESTO[l.puesto] || "" }),
+        h("td", { "data-etiqueta": "Nosotros" }, campeon(l.nuestro)), h("td", { "data-etiqueta": "Enfrente" }, campeon(l.suyo)),
+        ...cifras(l.a10, 10), ...cifras(l.a15, 15)));
+      partes.push(bloque("La línea, contra el de enfrente",
+        h("div", { clase: "tabla-envoltura apilable tabla-hoja" }, h("table", {},
+          h("thead", {},
+            h("tr", {}, ...["Puesto", "Nosotros", "Enfrente"].map((t) => h("th", { scope: "col", rowspan: 2, texto: t })),
+              h("th", { scope: "colgroup", colspan: 3, texto: "A los 10" }), h("th", { scope: "colgroup", colspan: 3, texto: "A los 15" })),
+            h("tr", {}, ...["Oro", "XP", "CS", "Oro", "XP", "CS"].map((t) => h("th", { scope: "col", texto: t })))),
+          h("tbody", {}, filas)))));
+    }
+
+    const graf = graficoOro(hoja.oro);
+    if (graf) partes.push(bloque("El oro", graf));
+
+    if (hoja.inflexiones.length) {
+      partes.push(bloque("Donde se movió la partida",
+        h("ul", { clase: "lista" }, hoja.inflexiones.map((x) => h("li", {},
+          h("strong", { texto: `Del ${x.desde} al ${x.hasta}: ${conSigno(x.oro)} de oro` }),
+          ` · kills ${x.aFavor}–${x.enContra}`,
+          x.objetivos.length ? ` · ${x.objetivos.map((o) => `${o.tipo} (${QUIEN(o.nuestro)})`).join(", ")}` : "")))));
+    }
+
+    const mu = hoja.muertes;
+    if (mu.total) {
+      const lista = h("ul", { clase: "lista lista-muertes" }, mu.lista.map((d) => h("li", {},
+        h("strong", { texto: MIN(d.t) }), " ", campeon(d.campeon),
+        d.zona ? ` en ${d.zona}` : "",
+        d.asesino ? h("span", {}, " · la kill, de ", campeon(d.asesino)) : " · execute",
+        d.aislada ? h("span", { clase: "etiqueta gris", texto: "aislada" }) : null,
+        d.cara.length ? h("span", { clase: "etiqueta ambar", texto: `después cae: ${d.cara.join(", ")}` }) : null,
+        d.shutdown ? ` · shutdown de ${numero(d.shutdown)}` : "",
+        d.oro != null && d.oro >= 1300 ? ` · llevaba unos ${numero(Math.round(d.oro / 100) * 100)} de oro sin gastar` : "")));
+      const detalles = h("details", { clase: "detalles-hoja" }, h("summary", { texto: mu.lista.length < mu.total ? `Las ${mu.lista.length} primeras, una a una` : `Las ${mu.lista.length} muertes, una a una` }), lista);
+      partes.push(bloque("Nuestras muertes",
+        h("p", {}, `${plural(mu.total, "muerte", "muertes")}: ${numero(mu.antesDel15)} antes del 15, ${numero(mu.aisladas)} aisladas (sin nadie más peleando cerca) y ${numero(mu.caras)} con un objetivo del rival justo después.`),
+        detalles));
+    }
+
+    if (hoja.peleas.length) {
+      partes.push(bloque("Las teamfights",
+        h("ul", { clase: "lista" }, hoja.peleas.map((p) => h("li", {},
+          h("strong", { texto: MIN(p.t) }), p.zona ? ` en ${p.zona}` : "",
+          " · ", h("span", { clase: `cifra-hoja ${p.aFavor > p.enContra ? "gana" : p.aFavor < p.enContra ? "pierde" : ""}`.trim(), texto: `${p.aFavor}–${p.enContra}` }),
+          p.despues.length ? ` · después: ${p.despues.map((o) => `${o.tipo} (${QUIEN(o.nuestro)})`).join(", ")}` : "")))));
+    }
+
+    if (hoja.objetivos.length) {
+      const de = (nuestro) => hoja.objetivos.filter((o) => o.nuestro === nuestro && !/^torre|^inhibidor/.test(o.tipo));
+      const torres = (nuestro) => hoja.objetivos.filter((o) => o.nuestro === nuestro && /^torre|^inhibidor/.test(o.tipo)).length;
+      const linea = (nuestro) => h("p", {}, h("strong", { texto: nuestro ? "Nosotros: " : "Ellos: " }),
+        de(nuestro).map((o) => `${o.tipo} (${MIN(o.t)})`).join(", ") || "ningún objetivo neutral",
+        ` · ${plural(torres(nuestro), "torre o inhibidor", "torres e inhibidores")}`);
+      partes.push(bloque("Los objetivos", linea(true), linea(false)));
+    }
+
+    if (hoja.clips.length) {
+      const propios = hoja.clips.filter((c) => c.nuestro);
+      partes.push(bloque("Candidatos a clip",
+        h("p", { clase: "ayuda", texto: "Salen de los datos, así que casi todos son jugadas épicas: lo gracioso de verdad (el Flash contra la pared, la ulti al vacío) no deja rastro. Lo que merezca la biblioteca, apuntadlo en «Qué salió bien» o «Qué salió mal» con su minuto." }),
+        h("ul", { clase: "lista" }, hoja.clips.map((c) => h("li", { clase: c.nuestro ? "" : "texto-suave" },
+          h("strong", { texto: MIN(c.t) }), ` · ${textoClip(cat, c)}`, c.nuestro ? "" : " (ellos)"))),
+        propios.length ? null : h("p", { clase: "texto-suave", texto: "Ninguno vuestro en esta partida." })));
+    }
+
+    if (hoja.rarezas.length) {
+      partes.push(bloque("Rarezas de la partida",
+        h("ul", { clase: "lista" }, hoja.rarezas.map((r) => h("li", { clase: r.nuestro ? "" : "texto-suave" },
+          campeon(r.quien), ` ${RAREZA[r.tipo] || r.tipo}${r.veces > 1 ? ` (${numero(r.veces)})` : ""}`, r.nuestro ? "" : " (ellos)")))));
+    }
+
+    partes.push(h("p", { clase: "ayuda pie-hoja", texto: "Sale de los datos de Riot de la partida: una foto por minuto, así que las zonas son aproximadas. No sabe dónde estaban las wards, ni el estado de las waves, ni cuándo se usó cada Flash. Dice qué pasó; el porqué lo ponéis vosotros." }));
+    return h("div", { clase: "hoja" }, partes);
+  }
+
+  /** El botón que trae la hoja de una partida y la pinta debajo (`nivel`: el
+   *  de los títulos de la hoja). */
+  function botonHoja(cat, ref, nivel) {
+    if (!ref) return null;
+    const caja = h("div", { clase: "hueco-hoja" });
+    const eco = h("p", { clase: "eco", "aria-live": "polite" });
+    const boton = h("button", { type: "button", clase: "boton pequeno", texto: "Ver la hoja automática" });
+    boton.addEventListener("click", async () => {
+      if (caja.firstChild) {
+        caja.hidden = !caja.hidden;
+        boton.textContent = caja.hidden ? "Ver la hoja automática" : "Ocultar la hoja";
+        return;
+      }
+      boton.disabled = true;
+      eco.classList.remove("mal");
+      eco.textContent = "Pidiendo la partida a Riot…";
+      try {
+        const r = await conEspera(() => api("riot/hoja", { ref }), (s) => { eco.textContent = `Riot pide esperar: seguimos en ${s} s…`; });
+        if (r.sinTimeline) {
+          eco.textContent = "Riot no tiene el timeline de esta partida, así que no hay hoja.";
+        } else {
+          eco.textContent = "";
+          caja.replaceChildren(vistaHoja(cat, r.hoja, nivel));
+          boton.textContent = "Ocultar la hoja";
+        }
+      } catch (e) {
+        eco.textContent = e.message;
+        eco.classList.add("mal");
+      } finally {
+        boton.disabled = false;
+      }
+    });
+    return h("div", { clase: "bloque-cosa" }, h("p", {}, boton), eco, caja);
+  }
+
   // ==================================================================== repaso del Clash
 
   async function paginaRepaso() {
@@ -1502,7 +1705,8 @@
         h("div", { clase: `draft-lado ${p.lado === "rojo" ? "azul" : "rojo"}` }, h("h4", { texto: "Ellos" }), h("ul", { clase: "iconos" }, p.suyos.map((x) => h("li", {}, vistaCampeon(cat, x.campeon, { tam: "mini" }), x.puesto ? h("span", { clase: "texto-suave", texto: NOMBRE_PUESTO[x.puesto] }) : null))))) : null,
       p.bien ? h("p", { clase: "texto" }, h("strong", { texto: "Bien: " }), p.bien) : null,
       p.mal ? h("p", { clase: "texto" }, h("strong", { texto: "Mal: " }), p.mal) : null,
-      p.app ? h("p", { clase: "texto" }, h("strong", { texto: "La app: " }), p.app) : null));
+      p.app ? h("p", { clase: "texto" }, h("strong", { texto: "La app: " }), p.app) : null,
+      botonHoja(cat, p.ref, 5)));
     if (d.lecciones.length) resto.push(h("div", { clase: "bloque-cosa" }, h("h4", { texto: "Lecciones" }), h("ul", { clase: "lista" }, d.lecciones.map((l) => h("li", { texto: l })))));
     if (d.video && /^https:\/\//.test(d.video)) {
       let sitio = "";
@@ -1511,7 +1715,7 @@
     }
     if (d.nota) resto.push(h("p", { clase: "texto", texto: d.nota }));
     return {
-      titulo: h("h3", { texto: `Clash del ${diaTexto(d.fecha)}${d.rival ? ` contra ${d.rival}` : ""}${jugadas ? ` · ${ganadas} de ${jugadas} ganadas` : ""}` }),
+      titulo: h("h3", { texto: `${d.cola === "flex" ? "Flex" : "Clash"} del ${diaTexto(d.fecha)}${d.rival ? ` contra ${d.rival}` : ""}${jugadas ? ` · ${ganadas} de ${jugadas} ganadas` : ""}` }),
       resto,
     };
   }
@@ -1519,6 +1723,7 @@
   function formularioRepaso(cat, c, quien, alGuardar, alCancelar) {
     const d = c ? c.datos : { partidas: [], lecciones: [] };
     const fecha = h("input", { type: "date", id: nuevoId("f"), value: d.fecha || hoyIso() });
+    const cola = selector([["clash", "Clash"], ["flex", "Flex"]], d.cola || "clash");
     const rival = entradaTexto({ valor: d.rival || "", max: 80, placeholder: "El nombre de su equipo" });
     const cajaPartidas = h("div", { clase: "formulario" });
     const partidas = [];
@@ -1548,8 +1753,9 @@
         campo("Qué salió bien", bien),
         campo("Qué salió mal", mal),
         campo("Qué dijo la app y si acertó", app, { ayuda: "La lectura del draft, el plan que propuso…" }),
+        botonHoja(cat, p.ref, 4),
         h("p", {}, quitar));
-      const item = { caja, lado, res, camposN, camposS, bien, mal, app, duracion: p.duracion ?? null };
+      const item = { caja, lado, res, camposN, camposS, bien, mal, app, duracion: p.duracion ?? null, ref: p.ref || "" };
       quitar.addEventListener("click", () => {
         partidas.splice(partidas.indexOf(item), 1);
         caja.remove();
@@ -1561,7 +1767,7 @@
     (d.partidas.length ? d.partidas : [{}]).forEach(nuevaPartida);
 
     const mas = h("button", { type: "button", clase: "boton pequeno", texto: "Otra partida", onclick: () => { if (partidas.length < 6) nuevaPartida(); } });
-    const traer = h("button", { type: "button", clase: "boton pequeno", texto: "Traer las partidas de Clash de ese día" });
+    const traer = h("button", { type: "button", clase: "boton pequeno", texto: "Traer las partidas de ese día" });
     const ecoTraer = h("p", { clase: "eco", "aria-live": "polite" });
     traer.hidden = !quien.riot;
     traer.addEventListener("click", async () => {
@@ -1569,13 +1775,13 @@
       ecoTraer.classList.remove("mal");
       ecoTraer.textContent = "Preguntando a Riot…";
       try {
-        const r = await conEspera(() => api("riot/clash-del-dia", { fecha: fecha.value }), (s) => { ecoTraer.textContent = `Riot pide esperar: seguimos en ${s} s…`; });
+        const r = await conEspera(() => api("riot/clash-del-dia", { fecha: fecha.value, cola: cola.value }), (s) => { ecoTraer.textContent = `Riot pide esperar: seguimos en ${s} s…`; });
         if (!r.partidas.length) {
-          ecoTraer.textContent = "Ese día no hay partidas de Clash con tu cuenta (la de tu perfil).";
+          ecoTraer.textContent = `Ese día no hay partidas de ${cola.value === "flex" ? "Flex" : "Clash"} con tu cuenta (la de tu perfil).`;
         } else {
           partidas.splice(0).forEach((x) => x.caja.remove());
           r.partidas.forEach(nuevaPartida);
-          ecoTraer.textContent = `${r.partidas.length === 1 ? "Traída 1 partida" : `Traídas ${r.partidas.length} partidas`}: completa lo que salió bien y mal.`;
+          ecoTraer.textContent = `${r.partidas.length === 1 ? "Traída 1 partida" : `Traídas ${r.partidas.length} partidas`}: cada una trae su hoja automática. Completa lo que salió bien y mal.`;
         }
       } catch (e) {
         ecoTraer.textContent = e.message;
@@ -1590,8 +1796,8 @@
     const nota = areaTexto({ valor: d.nota || "", max: 2000, corto: true });
     const pie = pieFormulario(c ? "Guardar los cambios" : "Publicar el repaso", alCancelar);
     const f = h("form", { clase: "formulario-zona", novalidate: true },
-      h("h2", { texto: c ? "Cambiar el repaso" : "Repaso de un Clash" }),
-      h("div", { clase: "fila-campos" }, campo("Día del Clash", fecha), campo("Rival", rival)),
+      h("h2", { texto: c ? "Cambiar el repaso" : "Repaso de un Clash o de unas Flex" }),
+      h("div", { clase: "fila-campos" }, campo("Día", fecha), campo("Cola", cola), campo("Rival", rival)),
       h("div", {}, h("p", {}, traer), ecoTraer, !quien.riot ? h("p", { clase: "ayuda", texto: "Para traer las partidas solas hace falta la clave de Riot en Cloudflare." }) : null),
       cajaPartidas,
       h("p", {}, mas),
@@ -1607,8 +1813,10 @@
       const fila = (lista) => lista.filter((x) => x.campo.valor).map((x) => ({ campeon: x.campo.valor, puesto: x.pu }));
       const datos = {
         fecha: fecha.value,
+        cola: cola.value,
         rival: rival.value,
         partidas: partidas.map((p) => ({
+          ref: p.ref,
           lado: p.lado.value,
           gano: p.res.value === "" ? null : p.res.value === "si",
           duracion: p.duracion,
@@ -1663,7 +1871,7 @@
 
     if (!quien.riot) {
       decir("");
-      buscar.replaceWith(h("div", { clase: "aviso ambar" }, h("p", { texto: "El scouting necesita la clave de la API de Riot en Cloudflare (el secreto RIOT_KEY). Pídeselo a Álvaro." })));
+      buscar.replaceWith(h("div", { clase: "aviso ambar" }, h("p", { texto: "El scouting necesita la clave de la API de Riot en Cloudflare (el secreto RIOT_KEY). Pídeselo al equipo oficinista de desarrollo." })));
       cinco.remove();
       return;
     }
@@ -1866,7 +2074,7 @@
     const pie = pieFormulario("Guardar");
     const f = h("form", { clase: "formulario-zona", novalidate: true },
       h("div", { clase: "fila-campos tres" }, campo("Nick", nick), campo("Riot ID", riot), campo("Puesto", puesto)),
-      h("p", { clase: "ayuda", texto: "El nick es como te ve el equipo. El Riot ID (Nombre#TAG) sirve para traer vuestras partidas de Clash al repaso y para ver las builds que lleváis de verdad." }),
+      h("p", { clase: "ayuda", texto: "El nick es como te ve el equipo. El Riot ID (Nombre#TAG) sirve para traer vuestras partidas de Clash o de Flex al repaso, con su hoja automática, y para ver las builds que lleváis de verdad." }),
       pie.nodos);
     f.addEventListener("submit", async (e) => {
       e.preventDefault();

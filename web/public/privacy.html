@@ -32,9 +32,9 @@
 <section class="documento">
   <div class="envoltura">
     <h1>Privacy policy</h1>
-    <p class="fecha">Last updated: 14 October 2026</p>
+    <p class="fecha">Last updated: 19 October 2026</p>
 
-    <p>OFI Draft Tool is a free Windows app and this website. Both are made by an independent developer based in Spain (GitHub: OFI-Dovahkiin), who is responsible for the data described here. If anything is unclear, write to <a href="mailto:contact@ofidraft.com">contact@ofidraft.com</a>.</p>
+    <p>OFI Draft Tool is a free Windows app and this website. Both are made by an independent developer based in Spain, who is responsible for the data described here. If anything is unclear, write to <a href="mailto:contact@ofidraft.com">contact@ofidraft.com</a>.</p>
 
     <h2>The short version</h2>
     <ul>
@@ -46,6 +46,7 @@
     <h2>This website</h2>
     <p>The website is a set of pages and a small server, both hosted by Cloudflare. It has no analytics, loads no third-party scripts or fonts and sets no cookies; the only ones are the sign-in cookies of the team area (<code>CF_Authorization</code> and <code>CF_AppSession</code>, from Cloudflare Access), and only for those who sign in. Cloudflare processes technical data such as your IP address to deliver the pages and protect them from abuse; see <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare's privacy policy</a>. If something fails on the server, Cloudflare keeps its error messages for a few days so we can fix it; we do not write what you send or your IP address into them.</p>
     <p>The form for bugs, ideas and misread drafts sends the developer an email with what you write, any file you attach, your browser's user agent and the country Cloudflare places your connection in. It is not stored on the website. To stop mass sending, the server remembers for 10 minutes how many reports came from your connection, keyed by a hash of your IP address rather than the address itself. Email sent to contact@ofidraft.com is forwarded by Cloudflare to the developer's mailbox.</p>
+    <p>Downloading the installer requires the team password. The server checks it and does not store it. To stop password guessing, it remembers for 10 minutes how many attempts came from your connection, as with the form: keyed by a hash of your IP address rather than the address itself. The server fetches the installer from GitHub, where it is stored.</p>
 
     <h2>The app on your PC</h2>
     <p>The app connects to:</p>
@@ -79,7 +80,8 @@
       <li><strong>Your profile</strong>: your email address (to know it is you; only the captains see it), the nickname, Riot ID and position you enter, and when you last visited. The team sees your nickname, Riot ID and position. Each member types their own Riot ID: the team area does not check that it is theirs.</li>
       <li><strong>What you write</strong>: ideas, drafts, builds, matchup notes, Clash plans, reviews and comments, with your nickname and the date, and your votes. The team sees them. They stay until you or a captain delete them. What a captain exports for the app (accepted builds, matchup notes that have not been withdrawn, misread drafts) carries neither your nickname nor your email address.</li>
       <li><strong>Clash scouting</strong>: for the Riot IDs of opponents that someone looks up, what the Riot API returns: their Clash team and position, their rank, their champion mastery and, from their last games (up to 10, Solo/Duo and Clash), the champion, position, result and KDA. It is used to prepare that Clash, never leaves the team area and is deleted automatically after 7 days.</li>
-      <li><strong>Reviews</strong>: if you bring in the Clash games of a day, for each game it keeps the ten champions with their positions, the side, the result and the length, with no names. A review can include a link to a video.</li>
+      <li><strong>Reviews</strong>: if you bring in the Clash or Flex games of a day, for each game it keeps the ten champions with their positions, the side, the result and the length, with no names. A review can include a link to a video.</li>
+      <li><strong>The automatic review sheet</strong>: when someone asks for it, what Riot's data says about that game (lanes at 10 and 15 minutes, deaths, teamfights, objectives and clip candidates), with champions and positions only, no names; and, to find it, the game number and the PUUID of whoever brought it in. It is kept for 30 days, and deleted earlier if that person is removed from the area.</li>
       <li><strong>The builds you actually play</strong>: for members who entered their Riot ID, when someone asks for it, from their last games (up to 12, Solo/Duo, Flex and Clash): the champion, position, result, runes, summoner spells and final items; and, to find them, their PUUID (Riot's player identifier) and the list of those games. Kept for 30 days, and deleted sooner if they change or remove their Riot ID, or if they are deleted from the team area.</li>
     </ul>
     <p>The team area's pages load the names and icons of champions, items, runes and summoner spells from Riot's Data Dragon (Riot sees your IP address). If you install the team area (on your phone or your computer), that browser keeps a copy of its pages, your profile and the Clash plans, so they open without a connection, and also uses it when you open the team area in a normal tab of that browser; «Salir» (sign out) deletes it. If you do not install it, nothing is kept.</p>

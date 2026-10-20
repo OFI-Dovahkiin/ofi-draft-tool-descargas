@@ -388,6 +388,7 @@ td code, p code, li code { font-family: inherit; font-stretch: 80%; font-weight:
 .aviso.ambar { border-left: 5px solid var(--ambar); background: var(--ambar-fondo); border-color: color-mix(in srgb, var(--ambar) 35%, transparent); }
 .aviso.verde { border-left: 5px solid var(--verde); background: var(--verde-fondo); border-color: color-mix(in srgb, var(--verde) 35%, transparent); }
 .aviso.azul { border-left: 5px solid var(--azul); }
+.aviso.rojo { border-left: 5px solid var(--rojo); background: var(--rojo-fondo); border-color: color-mix(in srgb, var(--rojo) 35%, transparent); }
 
 /* páginas de funciones */
 .ruta { margin: 0 0 10px; font-size: 0.92rem; color: var(--suave); }
@@ -441,9 +442,12 @@ q { quotes: "«" "»"; }
 /* formulario */
 .formulario { margin-top: 18px; display: grid; gap: 16px; max-width: 680px; }
 .campo { display: grid; gap: 6px; }
+/* Sin esto, un <select> con una opción larga ensancha la rejilla y a 320 px
+   la página de fallos salía con scroll lateral (18-10). */
+.formulario > *, .campo > * { min-width: 0; }
 .campo label { font-weight: 650; }
 .campo .ayuda { font-size: 0.9rem; color: var(--suave); margin: 0; }
-.campo input[type="text"], .campo select, .campo textarea {
+.campo input[type="text"], .campo input[type="password"], .campo select, .campo textarea {
   font: inherit; color: var(--tinta); background: var(--papel);
   border: 1.5px solid var(--linea); border-radius: 8px; padding: 10px 12px; width: 100%;
 }
@@ -768,3 +772,41 @@ button.boton[disabled] { opacity: 0.6; cursor: progress; }
 .texto-foto { margin: 6px 0 0; font-size: 0.95rem; }
 .j-vision-suya { fill: rgba(239, 68, 68, 0.16); stroke: #fca5a5; stroke-dasharray: 3 3; }
 .j-campamento { fill: #fde68a; stroke: #0b1220; }
+
+/* La descarga con contraseña (2026-10-15). Los avisos solo se ven cuando el
+   servidor devuelve a la página con su ancla (#clave-incorrecta…): así
+   funcionan sin JavaScript. */
+.clave-descarga { display: grid; gap: 12px; }
+.clave-descarga button { justify-self: start; cursor: pointer; }
+.aviso-descarga:not(:target) { display: none; }
+
+/* La hoja automática del repaso (equipo.js → vistaHoja; los datos salen de web/src/hoja.js). */
+.hoja { margin-top: 10px; padding: 12px 14px; border: 1px solid var(--linea); border-radius: 8px; background: var(--fondo); }
+.hoja .cabeza-hoja { margin: 0; }
+.bloque-hoja { margin-top: 16px; }
+.bloque-hoja .titulo-hoja { margin: 0 0 6px; font-size: 0.85rem; font-weight: 700; font-stretch: 85%; letter-spacing: 0.03em; text-transform: uppercase; color: var(--suave); }
+.bloque-hoja p { margin: 4px 0 0; }
+.bloque-hoja .lista { margin: 4px 0 0; }
+.bloque-hoja .lista li + li { margin-top: 4px; }
+.bloque-hoja .etiqueta { margin-left: 6px; vertical-align: 1px; }
+.cifra-hoja { font-variant-numeric: tabular-nums; font-weight: 650; white-space: nowrap; }
+.cifra-hoja.gana { color: var(--verde); }
+.cifra-hoja.pierde { color: var(--rojo); }
+.tabla-hoja { margin-top: 4px; }
+.tabla-hoja table { font-size: 0.92rem; }
+/* En el móvil se apila (.apilable, arriba); a partir de 720 px, tabla. */
+@media (min-width: 720px) {
+  .tabla-hoja table { min-width: 600px; }
+  .tabla-hoja th, .tabla-hoja td { padding: 7px 9px; }
+  .tabla-hoja td:first-child { width: auto; }
+}
+@media (max-width: 719px) { .tabla-hoja td:first-child { font-weight: 700; } }
+.figura-oro { margin: 4px 0 0; }
+.oro-hoja { display: block; width: 100%; max-width: 560px; height: auto; border: 1px solid var(--linea); border-radius: 6px; background: var(--papel); }
+.oro-hoja .cero { stroke: var(--linea); stroke-width: 1.5; }
+.oro-hoja .traza { fill: none; stroke: var(--azul); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+.figura-oro figcaption { margin-top: 4px; font-size: 0.88rem; }
+.detalles-hoja { margin-top: 6px; }
+.detalles-hoja summary { cursor: pointer; font-weight: 650; color: var(--azul); }
+.pie-hoja { margin-top: 16px; }
+.hueco-hoja:empty { display: none; }

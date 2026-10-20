@@ -11,10 +11,9 @@
  *   /equipo/*              → la zona del equipo, cerrada con Cloudflare Access
  *                            (zona.js; lo que guarda, en almacen.js).
  *   /datos/*               → los datos para la app (todavía no hay).
- *
- * La descarga del instalador (/descargar/instalador) no pasa por aquí: es una
- * redirección de `public/_redirects` (la escribe `generar/generar_web.py`), y
- * así no gasta peticiones del plan gratuito.
+ *   /descargar/instalador  → el instalador, con la contraseña del equipo
+ *                            (desde el 2026-10-15; antes era una redirección
+ *                            de `public/_redirects` directa a GitHub).
  *
  * Sin dependencias: lo que hace falta (leer un JWT, codificar base64) está
  * escrito aquí con lo que trae el propio Worker.
@@ -28,6 +27,18 @@ export { Zona } from "./almacen.js";
 
 const REPO_DESCARGAS = "OFI-Dovahkiin/ofi-draft-tool-descargas";
 const LATEST_JSON = `https://github.com/${REPO_DESCARGAS}/releases/latest/download/latest.json`;
+const INSTALADOR = `https://github.com/${REPO_DESCARGAS}/releases/latest/download/OFI-Draft-Tool-instalador.exe`;
+
+// La descarga con contraseña (ver `descargarInstalador`).
+const DESCARGA = {
+  // El formulario solo manda `clave=…`: con 2 KB sobra.
+  cuerpoBytesMax: 2048,
+  claveMax: 200,
+  // Intentos por conexión cada diez minutos, bien o mal: frena a quien prueba
+  // contraseñas y deja de sobra para el equipo.
+  porVentana: 10,
+  ventanaS: 600,
+};
 
 // El formulario de fallos: lo que se acepta.
 const FALLO = {
@@ -62,9 +73,11 @@ const TIPOS_ADJUNTO = {
 // equivoca. Va delante en el asunto para poder filtrarlo en el correo.
 const TIPOS = { fallo: "Fallo", idea: "Idea", motor: "Draft" };
 const DONDE = [
-  "Tablero de champ select", "Armería (runas, objetos, hechizos)", "Análisis de draft", "Equipo", "Jugadores",
+  "Tablero de champ select", "Armería (runas, items, hechizos)", "Análisis de draft", "Equipo", "Jugadores",
   "Tier list", "Fichas de campeón", "Historial", "En partida (overlay)", "Centro de mando o ajustes",
   "Instalar o actualizar", "La web", "Otra cosa",
+  // La etiqueta de antes del 18-10 (decía «objetos»): se sigue aceptando.
+  "Armería (runas, objetos, hechizos)",
 ];
 
 export default {
@@ -78,6 +91,9 @@ export default {
       if (ruta.startsWith("/api/")) return json({ error: "no-existe" }, 404);
       if (ruta === "/equipo" || ruta.startsWith("/equipo/")) return await zonaEquipo(request, env);
       if (ruta.startsWith("/datos/")) return json({ error: "todavia-no" }, 404);
+      if (ruta === "/descargar/instalador" || ruta === "/descargar/instalador.exe") {
+        return await descargarInstalador(request, env, ctx);
+      }
       return env.ASSETS.fetch(request);
     } catch (e) {
       console.error("fallo interno", ruta, e && e.stack ? e.stack : String(e));
@@ -110,6 +126,84 @@ function base64ABytes(b64) {
   const bytes = new Uint8Array(bin.length);
   for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
   return bytes;
+}
+
+// ------------------------------------------------------- /descargar/instalador
+
+/**
+ * **El instalador, con la contraseña del equipo** (2026-10-15).
+ *
+ * Ese día entró mucha gente a la web, y la app es del equipo. La página de
+ * Descargar pide la contraseña en un formulario normal (sin JavaScript) que
+ * llega aquí:
+ *
+ *   - GET (un enlace viejo, el de Discord) → a la página, que la pide.
+ *   - POST con `clave` → si es la del secreto `DESCARGA_CLAVE`, el instalador.
+ *     Lo trae este servidor de GitHub y lo sirve como descarga de
+ *     ofidraft.com, así que la página no enseña el enlace de GitHub.
+ *   - Si no lo es, o se pasa de intentos, o falta el secreto, de vuelta a la
+ *     página con el aviso que toca (`#clave-incorrecta`…, que el CSS enseña
+ *     con `:target`, también sin JavaScript).
+ *
+ * **Sin el secreto, cerrado**: no se baja nada. La contraseña no va en el
+ * código, que está en un repositorio público.
+ *
+ * **Lo que NO cierra:** el instalador sigue en el repositorio público de
+ * descargas, y quien tenga el enlace directo de GitHub lo baja sin
+ * contraseña. Cerrarlo del todo es hacer privado ese repositorio, y eso pide
+ * cambiar antes de dónde se actualiza la app (`latest.json`).
+ */
+async function descargarInstalador(request, env, ctx) {
+  const pagina = (aviso) => Response.redirect(new URL(`/descargar/${aviso ? "#" + aviso : ""}`, request.url).toString(), 303);
+  if (request.method !== "POST") return pagina("");
+  if (!mismoSitio(request)) return pagina("clave-incorrecta");
+
+  // Intentos por conexión, contados como en el formulario de fallos: en la
+  // caché de este centro de datos y con un resumen de la IP, no la IP.
+  const ip = request.headers.get("cf-connecting-ip") || "sin-ip";
+  const huella = await resumen(ip);
+  const claveCache = new Request(`https://ofidraft.com/__limite/descarga/${huella}`);
+  const cache = caches.default;
+  const previa = await cache.match(claveCache);
+  const n = previa ? parseInt(previa.headers.get("x-n") || "0", 10) : 0;
+  if (n >= DESCARGA.porVentana) return pagina("demasiados-intentos");
+  ctx.waitUntil(cache.put(claveCache, new Response("", { headers: { "x-n": String(n + 1), "cache-control": `max-age=${DESCARGA.ventanaS}` } })));
+
+  const buena = typeof env.DESCARGA_CLAVE === "string" ? env.DESCARGA_CLAVE.trim() : "";
+  if (!buena) return pagina("descarga-cerrada");
+
+  const cuerpo = await leerConTope(request, DESCARGA.cuerpoBytesMax);
+  if (cuerpo === null) return pagina("clave-incorrecta");
+  const dada = (new URLSearchParams(cuerpo).get("clave") || "").trim().slice(0, DESCARGA.claveMax);
+  if (!(await mismaClave(dada, buena))) return pagina("clave-incorrecta");
+
+  const r = await fetch(INSTALADOR, { redirect: "follow", headers: { "user-agent": "ofidraft.com" } });
+  if (!r.ok || !r.body) {
+    console.error("descarga: GitHub no ha dado el instalador", r.status);
+    return pagina("descarga-fallida");
+  }
+  const cabeceras = new Headers({
+    "content-type": "application/octet-stream",
+    "content-disposition": 'attachment; filename="OFI-Draft-Tool-instalador.exe"',
+    "cache-control": "no-store",
+    "x-content-type-options": "nosniff",
+  });
+  const largo = r.headers.get("content-length");
+  if (largo) cabeceras.set("content-length", largo);
+  return new Response(r.body, { status: 200, headers: cabeceras });
+}
+
+/**
+ * Compara la contraseña sin dar pistas por el tiempo que tarda: se comparan
+ * los dos resúmenes SHA-256 (siempre 32 bytes) con `timingSafeEqual`.
+ */
+async function mismaClave(dada, buena) {
+  const cod = new TextEncoder();
+  const [a, b] = await Promise.all([
+    crypto.subtle.digest("SHA-256", cod.encode(dada)),
+    crypto.subtle.digest("SHA-256", cod.encode(buena)),
+  ]);
+  return crypto.subtle.timingSafeEqual(a, b);
 }
 
 // ---------------------------------------------------------------- /api/version

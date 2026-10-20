@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>En partida · OFI Draft Tool</title>
-<meta name="description" content="El overlay opcional de OFI Draft Tool en partida: plan, objeto que falta, habilidad, objetivos y oro en objetos, con datos oficiales del juego.">
+<meta name="description" content="El overlay opcional de OFI Draft Tool en partida: plan, item que falta, habilidad, objetivos y oro en items, con datos oficiales del juego.">
 <link rel="icon" href="/assets/icono.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/estilo.css">
 <link rel="canonical" href="https://ofidraft.com/funciones/en-partida/">
@@ -36,18 +36,18 @@
   <div class="envoltura">
     <p class="ruta"><a href="/funciones/">Qué hace</a> › En partida (overlay)</p>
     <h1>En partida (overlay)</h1>
-    <p class="entrada">Una capa pequeña y transparente arriba a la derecha durante la partida, solo si la activas: tu plan, lo que te falta, qué habilidad subir, los objetivos y el oro en objetos.</p>
+    <p class="entrada">Una capa pequeña y transparente arriba a la derecha durante la partida, solo si la activas: tu plan, lo que te falta, qué habilidad subir, los objetivos y el oro en items.</p>
     <ul class="etiquetas"><li>Opcional</li><li>Solo datos oficiales</li><li>No estorba</li></ul>
   </div>
 </section>
 <div class="envoltura">
 <div class="figuras-dos">
 <figure class="figura mini">
-  <img src="/assets/capturas/overlay.webp" width="340" height="225" loading="lazy" decoding="async" alt="El overlay en el minuto 18 de una partida: el reloj y el nivel, el plan, el objeto que te falta, la habilidad que toca, los objetivos y el oro en objetos.">
+  <img src="/assets/capturas/overlay.webp" width="340" height="211" loading="lazy" decoding="async" alt="El overlay en el minuto 18 de una partida: el reloj y el nivel, el plan, el item que te falta, la habilidad que toca, los objetivos y el oro en items.">
   <figcaption>Una partida de ejemplo, a tamaño real.</figcaption>
 </figure>
 <figure class="figura mini">
-  <img src="/assets/capturas/overlay-aviso.webp" width="340" height="225" loading="lazy" decoding="async" alt="El mismo overlay unos segundos antes, a 1:30 del Barón: una banda con «BARÓN ~1:29» tapa la cabecera.">
+  <img src="/assets/capturas/overlay-aviso.webp" width="340" height="211" loading="lazy" decoding="async" alt="El mismo overlay unos segundos antes, a 1:30 del Barón: una franja con «BARÓN ~1:29» tapa la cabecera.">
   <figcaption>A 1:30 del Barón, el aviso tapa la cabecera unos segundos.</figcaption>
 </figure>
 </div>
@@ -58,7 +58,7 @@
     <h2>Cómo se activa</h2>
     <ul>
       <li>En Configuración, con «Overlay durante la partida». Viene apagado. Vale en cuanto lo cambias, también con la partida empezada.</li>
-      <li>Sale en partidas de la Grieta del Invocador (no en ARAM, Arena, URF ni en la herramienta de práctica), y solo cuando el juego ya da datos de esa partida.</li>
+      <li>Sale en partidas de la Grieta del Invocador (no en ARAM, Arena, URF ni en la practice tool), y solo cuando el juego ya da datos de esa partida.</li>
       <li>Se ve con el juego en «Ventana» o «Sin bordes»; en pantalla completa Windows no deja dibujar encima.</li>
       <li>Va arriba a la derecha, debajo del marcador y de los FPS y lejos del minimapa. El ratón la atraviesa, no roba el foco ni sale en la barra de tareas. Se esconde sola al acabar la partida.</li>
     </ul>
@@ -70,12 +70,12 @@
     <h2>Lo que enseña</h2>
     <ul>
       <li><strong>Cabecera</strong>: el reloj de la partida y tu nivel.</li>
-      <li><strong>Aviso de objetivo</strong>: a 1:30, 1:00 y 0:30 del objetivo más cercano, una banda que parpadea unos segundos encima de la cabecera («BARÓN ~1:29»), en ámbar, naranja y rojo. Dice qué sale y cuándo, nunca qué hacer.</li>
+      <li><strong>Aviso de objetivo</strong>: a 1:30, 1:00 y 0:30 del objetivo más cercano, una franja que parpadea unos segundos encima de la cabecera («BARÓN ~1:29»), en ámbar, naranja y rojo. Dice qué sale y cuándo, nunca qué hacer.</li>
       <li><strong>«PLAN»</strong>: el estilo de tu equipo y el resumen del plan del draft de esa partida. Si la app no vio el champ select, no se lo inventa.</li>
-      <li><strong>«TE FALTA»</strong>: el siguiente objeto de tu build que aún no llevas, con el oro que te falta para cerrarlo contando las piezas que ya llevas y lo que tienes («faltan 320g»), o «✓ llegas».</li>
+      <li><strong>«TE FALTA»</strong>: el siguiente item de tu build que aún no llevas, con el oro que te falta para cerrarlo contando las piezas que ya llevas y lo que tienes («faltan 320g»), o «✓ llegas».</li>
       <li><strong>«HABILIDAD»</strong>: qué subir ahora y en qué parte de las partidas medidas se sube esa en este punto («SUBE R · 77 % (1513 partidas)»).</li>
       <li><strong>«OBJETIVOS»</strong>: los tres más cercanos (dragón, larvas, heraldo, barón) con su cuenta o «YA». Con «~» delante, la cuenta sale del horario del parche; sin él, de cuándo murió en esta partida.</li>
-      <li><strong>«ORO EN OBJETOS»</strong>: dos diferencias, la de tu equipo con el suyo («equipos +1.275») y la tuya con tu rival de línea («tu línea +850»), sacadas de los objetos que lleva cada uno. Desde la próxima versión cuentan cada objeto por su precio de tienda (hasta ahora salían mal) y llevan al lado, en gris, tu oro sin gastar, como en la captura. Solo sale cuando se han leído los diez jugadores.</li>
+      <li><strong>«ORO EN ITEMS»</strong>: dos diferencias, la de tu equipo con el suyo («equipos +1.275») y la tuya con tu rival de línea («tu línea +850»), sacadas de los items que lleva cada uno. Desde la próxima versión cuentan cada item por su precio de tienda (hasta ahora salían mal) y llevan al lado, en gris, tu oro sin gastar, como en la captura. Solo sale cuando se han leído los diez jugadores.</li>
     </ul>
   </div>
 </section>
@@ -84,9 +84,9 @@
   <div class="envoltura">
     <h2>Lo que lee y lo que no</h2>
     <ul>
-      <li>Solo la API oficial del juego en tu PC (Live Client Data), cada 2 segundos: tu campeón, nivel, oro, habilidades y objetos; de los otros nueve, su lado, puesto y objetos, que convierte al momento en una cifra de oro; y cuándo muere cada objetivo.</li>
+      <li>Solo la API oficial del juego en tu PC (Live Client Data), cada 2 segundos: tu campeón, nivel, oro, habilidades e items; de los otros nueve, su lado, puesto e items, que convierte al momento en una cifra de oro; y cuándo muere cada objetivo.</li>
       <li>No lee la memoria del juego, no pulsa teclas, no compra y no sube habilidades: solo enseña.</li>
-      <li>No da nada del rival que no veas ya: ni enfriamientos, ni posiciones, ni nombres.</li>
+      <li>No da nada del rival que no veas ya: ni CDs, ni posiciones, ni nombres.</li>
       <li>Lo que apunta en el diario de sesión se queda en tu PC.</li>
     </ul>
   </div>

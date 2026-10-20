@@ -27,7 +27,7 @@
     // Solo estas rutas pasan por el Worker; lo demás son ficheros, que no
     // cuentan para el límite diario del plan gratuito. La descarga del
     // instalador tampoco: es una redirección de `public/_redirects`.
-    "run_worker_first": ["/api/*", "/equipo", "/equipo/*", "/datos/*"]
+    "run_worker_first": ["/api/*", "/equipo", "/equipo/*", "/datos/*", "/descargar/instalador", "/descargar/instalador.exe"]
   },
   // El formulario de «Avisar de un fallo» manda un correo. A quién: el
   // secreto DESTINO.

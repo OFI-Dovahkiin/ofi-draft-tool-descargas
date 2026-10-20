@@ -1,10 +1,11 @@
 /**
  * Lo que la zona del equipo le pregunta a la API de Riot: el scouting del
- * rival de Clash y las partidas de Clash de un día (para el repaso).
+ * rival de Clash, las partidas de Clash o de Flex de un día (para el repaso)
+ * y la hoja automática de cada una (`hoja.js`).
  *
  * **Las normas de Riot que se cumplen aquí, y por qué:**
  *
- * - La clave es la de Álvaro, como secreto de Cloudflare (`RIOT_KEY`): nunca
+ * - La clave es la del equipo, como secreto de Cloudflare (`RIOT_KEY`): nunca
  *   llega al navegador ni está en el repositorio. Una clave personal vale
  *   para «un producto para el desarrollador o una comunidad pequeña y
  *   privada» (developer.riotgames.com/docs/portal): la zona está cerrada al
@@ -19,6 +20,7 @@
  *   Riot (429), que se le pasa al navegador para que lo reintente él.
  */
 import { fecha as validarFecha, Invalido, riotId as validarRiotId, PUESTOS } from "./tipos.js";
+import { hojaDeRepaso, VERSION_HOJA } from "./hoja.js";
 
 // Partidas que se miran de cada rival (las más nuevas de SoloQ y de Clash) y
 // cuántas se bajan en cada llamada: el plan gratuito da 10 ms de CPU por
@@ -267,36 +269,67 @@ function inicioDelDia(fecha) {
   return Date.parse(`${fecha}T00:00:00Z`) - (hora - 12) * 3600_000;
 }
 
+const COLAS_DEL_REPASO = { clash: COLA_CLASH, flex: COLA_FLEX };
+
 /**
- * Las partidas de Clash de un día, con el Riot ID del perfil de quien lo
- * pide: los diez campeones con su puesto, de qué lado y quién ganó. Para
- * rellenar el repaso sin escribirlo a mano. Sin nombres de nadie.
+ * **La referencia de una partida**: lo que ve el navegador en vez del número
+ * de la partida. Con el número, cualquiera con una clave de Riot sacaría los
+ * diez nombres; con esto no, porque sale de la huella de nuestra clave. Es
+ * siempre la misma para la misma partida, así que se puede guardar en el
+ * repaso y pedir la hoja otro día (mientras no pasen los 30 días).
  */
-export async function clashDelDia(c, riotIdTexto, fechaTexto) {
-  if (!riotIdTexto) throw new Invalido("Pon tu Riot ID en tu perfil (arriba, en «Tu perfil») y vuelve a probar.");
-  const dia = validarFecha(fechaTexto, "Día");
+export async function referenciaDe(fp, idPartida) {
+  const h = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(`ofi-ref:${fp}:${idPartida}`));
+  return [...new Uint8Array(h)].slice(0, 10).map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+/** El PUUID de un Riot ID, guardado 30 días como el de «lo que lleváis» (`propias.js`). */
+async function puuidDe(c, riotIdTexto) {
   const { nombre, etiqueta } = validarRiotId(riotIdTexto, "Tu Riot ID");
+  const clave = `${c.fp}:cuenta:${String(riotIdTexto).toLowerCase()}`;
+  const guardado = (await c.z.propia(clave))?.puuid;
+  if (guardado) return guardado;
   const { region } = servidores(c.env);
-  const desde = inicioDelDia(dia);
-  await reservar(c.z, 2);
+  await reservar(c.z, 1);
   const cuenta = await pedir(c, region, `/riot/account/v1/accounts/by-riot-id/${enc(nombre)}/${enc(etiqueta)}`);
   if (!cuenta) throw new Invalido(`Tu Riot ID (${nombre}#${etiqueta}) no existe: corrígelo en tu perfil.`);
-  const ids = ((await pedir(c, region, `/lol/match/v5/matches/by-puuid/${enc(cuenta.puuid)}/ids`, {
-    queue: COLA_CLASH, startTime: Math.floor(desde / 1000), endTime: Math.floor((desde + 24 * 3600_000) / 1000), count: 10,
-  })) || []).filter((id) => typeof id === "string").slice(0, 4);
+  await c.z.guardarPropias([[clave, { puuid: cuenta.puuid }]]);
+  return cuenta.puuid;
+}
+
+/**
+ * Las partidas de Clash (o de Flex) de un día, con el Riot ID del perfil de
+ * quien lo pide: los diez campeones con su puesto, de qué lado y quién ganó.
+ * Para rellenar el repaso sin escribirlo a mano. Sin nombres de nadie, y en
+ * vez del número de cada partida, su referencia (`referenciaDe`).
+ */
+export async function clashDelDia(c, riotIdTexto, fechaTexto, colaTexto = "clash") {
+  if (!riotIdTexto) throw new Invalido("Pon tu Riot ID en tu perfil (arriba, en «Tu perfil») y vuelve a probar.");
+  const dia = validarFecha(fechaTexto, "Día");
+  const cola = COLAS_DEL_REPASO[colaTexto || "clash"];
+  if (!cola) throw new Invalido("Cola: o Clash o Flex.");
+  const { region } = servidores(c.env);
+  const desde = inicioDelDia(dia);
+  const puuid = await puuidDe(c, riotIdTexto);
+  await reservar(c.z, 1);
+  const ids = ((await pedir(c, region, `/lol/match/v5/matches/by-puuid/${enc(puuid)}/ids`, {
+    queue: cola, startTime: Math.floor(desde / 1000), endTime: Math.floor((desde + 24 * 3600_000) / 1000), count: 10,
+  })) || []).filter((id) => typeof id === "string" && /^[A-Z0-9]+_\d+$/.test(id)).slice(0, 4);
   if (!ids.length) return { partidas: [] };
   await reservar(c.z, ids.length);
   const bajadas = await Promise.all(ids.map((id) => pedir(c, region, `/lol/match/v5/matches/${enc(id)}`)));
   const partidas = [];
-  bajadas.forEach((m) => {
-    const info = m && m.info;
-    const yo = info && Array.isArray(info.participants) && info.participants.find((x) => x && x.puuid === cuenta.puuid);
-    if (!yo) return;
+  const referencias = [];
+  for (let i = 0; i < bajadas.length; i++) {
+    const info = bajadas[i] && bajadas[i].info;
+    const yo = info && Array.isArray(info.participants) && info.participants.find((x) => x && x.puuid === puuid);
+    if (!yo) continue;
     const fila = (x) => ({ campeon: x.championId, puesto: PUESTOS.includes(x.teamPosition) ? x.teamPosition : "" });
     const porPuesto = (a, b) => (ORDEN[a.puesto] ?? 9) - (ORDEN[b.puesto] ?? 9);
-    // Sin el número de la partida: con él, cualquiera con una clave de Riot
-    // sacaría los diez nombres.
+    const ref = await referenciaDe(c.fp, ids[i]);
+    referencias.push([`${c.fp}:partida:ref-${ref}:${puuid}`, { id: ids[i] }]);
     partidas.push({
+      ref,
       creada: info.gameCreation,
       lado: yo.teamId === 100 ? "azul" : "rojo",
       gano: !!yo.win,
@@ -304,9 +337,44 @@ export async function clashDelDia(c, riotIdTexto, fechaTexto) {
       nuestros: info.participants.filter((x) => x.teamId === yo.teamId).map(fila).sort(porPuesto),
       suyos: info.participants.filter((x) => x.teamId !== yo.teamId).map(fila).sort(porPuesto),
     });
-  });
+  }
+  // La referencia → el número de la partida se queda aquí, 30 días, y se
+  // borra con lo demás del jugador si se va de la zona (`olvidarPartidas`).
+  if (referencias.length) await c.z.guardarPropias(referencias);
   partidas.sort((a, b) => a.creada - b.creada);
   return { partidas };
+}
+
+/**
+ * **La hoja automática de una partida** (`hoja.js`), por su referencia.
+ * Dos consultas a Riot (el detalle y el timeline) la primera vez; después,
+ * 30 días guardada. El timeline pesa unos 700 KB: va una partida por llamada
+ * para no pasarse de los 10 ms de CPU del plan gratuito.
+ */
+export async function hojaDe(c, riotIdTexto, refTexto) {
+  if (!riotIdTexto) throw new Invalido("Pon tu Riot ID en tu perfil (arriba, en «Tu perfil») y vuelve a probar.");
+  if (typeof refTexto !== "string" || !/^[a-f0-9]{20}$/.test(refTexto)) throw new Invalido("Partida: no se ha entendido.");
+  const puuid = await puuidDe(c, riotIdTexto);
+  const mapa = await c.z.propia(`${c.fp}:partida:ref-${refTexto}:${puuid}`);
+  if (!mapa || typeof mapa.id !== "string") {
+    throw new Invalido("Esa partida ya no está guardada (se borra a los 30 días, o la trajo otro del equipo): vuelve a traer las partidas de ese día.");
+  }
+  const claveHoja = `${c.fp}:partida:hoja${VERSION_HOJA}-${mapa.id}:${puuid}`;
+  const guardada = await c.z.propia(claveHoja);
+  if (guardada) return guardada;
+  const { region } = servidores(c.env);
+  await reservar(c.z, 2);
+  const [partida, timeline] = await Promise.all([
+    pedir(c, region, `/lol/match/v5/matches/${enc(mapa.id)}`),
+    pedir(c, region, `/lol/match/v5/matches/${enc(mapa.id)}/timeline`),
+  ]);
+  if (!partida) throw new Invalido("Riot ya no tiene esa partida.");
+  if (!timeline) return { sinTimeline: true };
+  const hoja = hojaDeRepaso(partida, timeline, puuid);
+  if (!hoja) throw new Invalido("Esa partida no es de la Grieta, o Riot no la trae entera.");
+  const fuera = { hoja };
+  await c.z.guardarPropias([[claveHoja, fuera]]);
+  return fuera;
 }
 
 export { COLA_SOLO, COLA_FLEX, COLA_CLASH };
