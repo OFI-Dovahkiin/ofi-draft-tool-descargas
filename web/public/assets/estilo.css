@@ -500,7 +500,9 @@ details.cruce dd { margin: 0 0 10px; }
 details.cruce > p { margin: 0; padding: 0 16px 12px; font-size: 0.92rem; }
 
 /* =====================================================================
-   Zona del equipo (/equipo/). Las piezas que pinta assets/equipo.js.
+   Zona del equipo (/equipo/). Las piezas que pintaba assets/equipo.js.
+   La zona se quitó el 2026-10-20; algunas de estas clases ya no las usa
+   ninguna página (se quitarán con la próxima limpieza de la hoja).
    ===================================================================== */
 
 :root { --gris: #6b7383; --gris-fondo: #eceff3; }

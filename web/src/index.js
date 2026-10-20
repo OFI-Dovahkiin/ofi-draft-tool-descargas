@@ -7,23 +7,20 @@
  *
  *   /api/version           → la última versión y de cuándo son sus datos.
  *   /api/fallo             → el formulario de fallos, ideas y drafts mal leídos, por correo.
- *   /api/zona              → si la zona del equipo ya está abierta (para /zona/).
- *   /equipo/*              → la zona del equipo, cerrada con Cloudflare Access
- *                            (zona.js; lo que guarda, en almacen.js).
  *   /datos/*               → los datos para la app (todavía no hay).
  *   /descargar/instalador  → el instalador, con la contraseña del equipo
  *                            (desde el 2026-10-15; antes era una redirección
  *                            de `public/_redirects` directa a GitHub).
  *
+ * La zona del equipo (/equipo, con Cloudflare Access, un Durable Object y la
+ * clave de Riot en el servidor) se quitó el 2026-10-20: el análisis de las
+ * partidas va en la app de escritorio. Su código sigue en la historia de git
+ * del repositorio de descargas (la última versión que lo lleva: 7b6b1a5).
+ *
  * Sin dependencias: lo que hace falta (leer un JWT, codificar base64) está
  * escrito aquí con lo que trae el propio Worker.
  */
 import { json, leerConTope, limpiar, mismoSitio, resumen } from "./util.js";
-import { zonaAbierta, zonaEquipo } from "./zona.js";
-
-// El almacén de la zona del equipo (un Durable Object): Cloudflare lo busca
-// entre lo que exporta este fichero.
-export { Zona } from "./almacen.js";
 
 const REPO_DESCARGAS = "OFI-Dovahkiin/ofi-draft-tool-descargas";
 const LATEST_JSON = `https://github.com/${REPO_DESCARGAS}/releases/latest/download/latest.json`;
@@ -87,9 +84,7 @@ export default {
     try {
       if (ruta === "/api/version") return await apiVersion(request, ctx);
       if (ruta === "/api/fallo") return await apiFallo(request, env, ctx);
-      if (ruta === "/api/zona") return json({ abierta: zonaAbierta(env) }, 200, { "cache-control": "public, max-age=60" });
       if (ruta.startsWith("/api/")) return json({ error: "no-existe" }, 404);
-      if (ruta === "/equipo" || ruta.startsWith("/equipo/")) return await zonaEquipo(request, env);
       if (ruta.startsWith("/datos/")) return json({ error: "todavia-no" }, 404);
       if (ruta === "/descargar/instalador" || ruta === "/descargar/instalador.exe") {
         return await descargarInstalador(request, env, ctx);

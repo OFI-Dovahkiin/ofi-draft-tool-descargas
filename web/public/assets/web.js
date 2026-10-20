@@ -71,16 +71,6 @@
     version().then(pintarVersion).catch(function () { /* se queda el texto de serie */ });
   }
 
-  // ---------------------------------------------------------------- la zona del equipo
-  // En /zona/: si la zona aún no está abierta (Access sin configurar), lo dice.
-  var estadoZona = document.querySelector("[data-zona-estado]");
-  if (estadoZona) {
-    fetch("/api/zona", { headers: { accept: "application/json" } })
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (z) { if (z && z.abierta === false) estadoZona.hidden = false; })
-      .catch(function () { /* sin respuesta, no se dice nada */ });
-  }
-
   // ---------------------------------------------------------------- buscador de campeones
   // En /guias/cruces/: filtra las listas por nombre mientras se escribe. Sin
   // JavaScript, se ven todas.

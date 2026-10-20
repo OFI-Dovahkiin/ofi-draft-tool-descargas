@@ -59,12 +59,6 @@ export function mismoSitio(request) {
   }
 }
 
-/** Las pruebas en el propio ordenador (`wrangler dev`), nunca en ofidraft.com. */
-export function esLocal(request) {
-  const host = new URL(request.url).hostname;
-  return host === "localhost" || host === "127.0.0.1";
-}
-
 export async function resumen(texto) {
   const datos = new TextEncoder().encode(texto);
   const hash = await crypto.subtle.digest("SHA-256", datos);

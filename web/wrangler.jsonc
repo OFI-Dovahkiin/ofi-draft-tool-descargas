@@ -4,20 +4,25 @@
 // descargas (Workers Builds, en Cloudflare).
 //
 // **Lo que NO está aquí, porque este repositorio es público**, y se pone en
-// Cloudflare como secreto (Workers & Pages → ofi-draft-tool-web → Settings →
-// Variables and Secrets → Add → Type: Secret). Los secretos no se borran al
-// publicar:
+// Cloudflare como secreto. **En la sección de RUNTIME**, no en la de la
+// compilación: Workers & Pages → ofi-draft-tool-web → Configuración →
+// «Variables y secretos de runtime» → «+ Agregar variable» → marcar «Secreto»
+// → «Añadir variable e implementar». (La otra sección, la que está junto a
+// «Token de API» y las rutas de compilación, es solo para la compilación: el
+// Worker no la ve. El 20-10 DESTINO estaba ahí y el formulario no mandaba nada.)
+// Los secretos no se borran al publicar:
 //   DESTINO          el correo al que llegan los avisos del formulario.
-//   EQUIPO_DOMINIO   el dominio de Cloudflare Access (xxx.cloudflareaccess.com).
-//   EQUIPO_AUD       la «Application Audience (AUD) Tag» de la zona en Access.
-//   EQUIPO_ADMINS    los correos de los capitanes, separados por comas.
-//   RIOT_KEY         la clave de la API de Riot, para el scouting y el repaso.
+//   DESCARGA_CLAVE   la contraseña del equipo para bajar el instalador.
+// Cómo saber si están, sin verlos:
+//   POST /api/fallo con «{}»       → 503 si falta DESTINO, 403 si está.
+//   POST /descargar/instalador con una clave mala → #clave-incorrecta si
+//   DESCARGA_CLAVE está, #descarga-cerrada si falta.
 {
   "name": "ofi-draft-tool-web",
   "main": "src/index.js",
   "compatibility_date": "2026-10-12",
-  // La dirección *.workers.dev y las de vista previa saltarían Cloudflare
-  // Access (la zona del equipo): solo se entra por ofidraft.com.
+  // Solo se entra por ofidraft.com: ni *.workers.dev ni direcciones de vista
+  // previa.
   "workers_dev": false,
   "preview_urls": false,
   "assets": {
@@ -25,26 +30,23 @@
     "binding": "ASSETS",
     "not_found_handling": "404-page",
     // Solo estas rutas pasan por el Worker; lo demás son ficheros, que no
-    // cuentan para el límite diario del plan gratuito. La descarga del
-    // instalador tampoco: es una redirección de `public/_redirects`.
-    "run_worker_first": ["/api/*", "/equipo", "/equipo/*", "/datos/*", "/descargar/instalador", "/descargar/instalador.exe"]
+    // cuentan para el límite diario del plan gratuito.
+    "run_worker_first": ["/api/*", "/datos/*", "/descargar/instalador", "/descargar/instalador.exe"]
   },
   // El formulario de «Avisar de un fallo» manda un correo. A quién: el
   // secreto DESTINO.
   "send_email": [{ "name": "CORREO" }],
   "vars": {
-    "REMITENTE": "web@ofidraft.com",
-    // Dónde juega el equipo, para la API de Riot (EUW).
-    "RIOT_PLATAFORMA": "euw1",
-    "RIOT_REGION": "europe"
+    "REMITENTE": "web@ofidraft.com"
   },
-  // El almacén de la zona del equipo: un Durable Object con SQLite dentro.
-  // Está en el plan gratuito y lo crea el propio despliegue (la migración de
-  // abajo): no hay que crear nada a mano en Cloudflare.
-  "durable_objects": {
-    "bindings": [{ "name": "ZONA", "class_name": "Zona" }]
-  },
-  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Zona"] }],
+  // La zona del equipo tenía un almacén (un Durable Object, «Zona»). Se quitó
+  // el 2026-10-20 con la zona: la migración v2 lo borra de Cloudflare. Las
+  // migraciones no se quitan nunca de esta lista: Cloudflare las aplica en
+  // orden y recuerda cuál fue la última.
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["Zona"] },
+    { "tag": "v2", "deleted_classes": ["Zona"] }
+  ],
   // Opcional: un limitador de Cloudflare para el formulario, además del que
   // lleva el Worker con la caché. Si se quiere, se quita el `//` de la línea
   // de abajo (si el plan no lo admite, el despliegue falla y lo dice; entonces
