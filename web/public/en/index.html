@@ -89,9 +89,9 @@
   <div class="envoltura">
     <h2>For the team</h2>
     <ul class="lista">
-      <li><strong>Players.</strong> Each member's roles, champion pool and recent form, measured on their own games.</li>
+      <li><strong>Players.</strong> Each member's roles, champion pool and recent form, measured on their own games. And, role by role, their strengths, weaknesses, things to work on and style against their lane opponent, from the review sheets of their games, each with its number and sample size (nothing is claimed with fewer than 8 games).</li>
       <li><strong>Game plans.</strong> Compositions the five of you can actually play, with who takes each role, who comes in if a champion is banned, and which bans protect the plan.</li>
-      <li><strong>Match history.</strong> The team's recent games, with filters by queue, result, role and champion.</li>
+      <li><strong>Match history.</strong> The team's recent games, with filters by queue, result, role and champion. Games with a review sheet open it in full: lanes at 10 and 15 minutes, team gold minute by minute, deaths, teamfights, objectives and the vision before each, clip moments, and for each of our players what to work on and what went well, each with its number. The app carries the last 30 days' games with two or more of us and each player's last 10; on the PC running the collector, every game in its folder.</li>
       <li><strong>Clash scouting.</strong> Before a Clash match, the champions the opposing players play, from their public games.</li>
     </ul>
   </div>
@@ -109,7 +109,7 @@
         <tbody>
           <tr>
             <td>Riot API: <code>match-v5</code>, <code>league-v4</code></td>
-            <td>Ranked Solo/Duo games on EUW, aggregated by champion and role: win rates, matchups, gold at 15, builds, rune pages and summoner spells.</td>
+            <td>Ranked Solo/Duo games on EUW, aggregated by champion and role: win rates, matchups, builds, rune pages and summoner spells. Our own gold at 15 minutes, from these games' timelines, is still being collected: until there is enough, the app shows the legacy figure (last row).</td>
             <td>A nightly job on our build server. The results ship inside each app version.</td>
           </tr>
           <tr>
@@ -154,7 +154,7 @@
           </tr>
           <tr>
             <td>Legacy data from the app's first version</td>
-            <td>Matchup figures for pairs with too few Riot API games, marked «V1» in the app, taken from op.gg's public pages. Versions up to 20 October 2026 also carried a career summary of each team player from the same source.</td>
+            <td>For now, gold at 15 minutes for every matchup, and all the figures of matchups with too few Riot API games (marked «V1» in the app), taken from op.gg's public pages by the app's first version. This is temporary: it goes as soon as our collector has gathered enough of our own. Versions up to 20 October 2026 also carried a career summary of each team player from the same source.</td>
             <td>Shipped inside the app, and being removed as our own data grows. The career summary is no longer in the app.</td>
           </tr>
         </tbody>
