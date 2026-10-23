@@ -828,3 +828,4 @@ details.matchup { max-width: 90ch; }
 .reglas-lista li { padding-left: 10px; border-left: 2px solid var(--linea); }
 .etiqueta-secundario { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.02em; color: var(--suave); border: 1px solid currentColor; border-radius: 4px; padding: 0 5px; vertical-align: middle; white-space: nowrap; }
 h1 .etiqueta-secundario { font-size: 0.9rem; }
+.etiqueta-guia { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.02em; color: var(--azul); border: 1px solid currentColor; border-radius: 4px; padding: 0 5px; vertical-align: middle; white-space: nowrap; }
