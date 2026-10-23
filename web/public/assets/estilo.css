@@ -812,3 +812,19 @@ button.boton[disabled] { opacity: 0.6; cursor: progress; }
 .detalles-hoja summary { cursor: pointer; font-weight: 650; color: var(--azul); }
 .pie-hoja { margin-top: 16px; }
 .hueco-hoja:empty { display: none; }
+
+/* ---------------------------------------------------------------- matchups por línea (E29) */
+.lista-cruces { list-style: none; padding: 0; margin: 8px 0 0; }
+.lista-cruces li[hidden], .lista-cruces[hidden] { display: none; }
+details.matchup { max-width: 90ch; }
+.matchup-cuerpo { padding: 4px 16px 12px; }
+.matchup-cuerpo h3 { font-size: 0.98rem; margin: 14px 0 6px; }
+.matchup-cuerpo h4 { font-size: 0.9rem; margin: 0 0 6px; color: var(--suave); }
+.matchup-cuerpo dl { padding: 0; }
+.matchup-cuerpo > p { margin: 6px 0; }
+.reglas-dos { display: grid; gap: 10px 22px; }
+@media (min-width: 720px) { .reglas-dos { grid-template-columns: 1fr 1fr; } }
+.reglas-lista { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.reglas-lista li { padding-left: 10px; border-left: 2px solid var(--linea); }
+.etiqueta-secundario { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.02em; color: var(--suave); border: 1px solid currentColor; border-radius: 4px; padding: 0 5px; vertical-align: middle; white-space: nowrap; }
+h1 .etiqueta-secundario { font-size: 0.9rem; }
